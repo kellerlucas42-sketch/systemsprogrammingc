@@ -1,6 +1,9 @@
 # README Title
+
 Author: Lucas Keller
+
 Date: 04/30/2026
+
 ## Lab 02 - Command Line Practice
 ### Description
 
