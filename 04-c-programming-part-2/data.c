@@ -42,16 +42,17 @@
 //
 //  Good luck!
 
-uint8_t calculateCircumference(uint8_t radius) {
+double calculateCircumference(double radius) {
     // TODO: Fix this function
-    uint8_t diameter = radius * TWO_PI;
-    return radius;
+    if(radius < 0) return -1;
+    double circumference = radius * TWO_PI;
+    return circumference;
 }
 
 double calculateAverage(int data[5]) {
     // TODO: Fix this function
-    int sum = 0;
-    for (int i = 1; i <= 5; i++) {
+    double sum = 0;
+    for (int i = 0; i <= 5; i++) {
         sum += data[i];
     }
     return sum / 5;
@@ -59,18 +60,18 @@ double calculateAverage(int data[5]) {
 
 uint8_t anyBitIsOne(int32_t input) {
     // TODO: Implement this function
-    return 0;
+    uint32_t test = 4294967295;
+    return input && test;
 }
 
 uint8_t anyBitIsZero(int32_t input) {
     // TODO: Implement this function
-    return 0;
+    return !input;
 }
 
 int8_t extractFromWord(uint32_t word, uint8_t bytenum) {
     // TODO: Implement this function
-    return 0;
-}
+    return ((unsigned)word >> (bytenum << 3)) & 0xFF;
 
 uint32_t mutliplyByBase2(uint32_t num, uint32_t power) {
     // TODO: Implement this function

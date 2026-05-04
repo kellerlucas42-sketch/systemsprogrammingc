@@ -1,0 +1,3 @@
+Congrats! If you are reading this message, this means that you have a grasp on doing simple movement in the terminal.
+
+Task 2 (of 7): Now take a look around are this folder in more detail. Are there any other files hidden here? Try using the "ls" command, then try  "ls -l", then "ls -la".

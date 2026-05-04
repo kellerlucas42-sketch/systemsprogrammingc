@@ -1,0 +1,21 @@
+.
+├── .admin
+│   └── runme.sh
+├── apple
+│   └── orange.txt
+├── mov
+│   ├── congratulations.txt
+│   └── .whats_this
+│       └── sneaky.txt
+├── README.txt
+├── runme.sh
+├── scripts
+│   ├── .environs
+│   │   └── instructions.txt
+│   ├── hamburger.sh
+│   ├── runme.sh
+│   └── text.txt
+├── solution.txt
+└── tree.txt
+
+7 directories, 12 files

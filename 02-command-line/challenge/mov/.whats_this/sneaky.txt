@@ -1,0 +1,5 @@
+It turns out you know your hidden directories too!
+
+Task 3 (of 7): Make a new directory called banana. Inside that directory, create a new file named after whatever fruit you want. Inside that text file put the name of a completely different fruit.
+
+After you have completed this, go to the top folder (challenge) and run the runme.sh file.

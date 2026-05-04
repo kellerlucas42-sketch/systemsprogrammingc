@@ -29,11 +29,24 @@
 
 uint32_t getStringLength(char string[]) {
     // TODO: Implement this function
-    return 0;
+    int j = 0;
+    int length = 0;
+    while(string[j]){
+        length++;
+        j++;
+    }
+    return length;
 }
 
 void toUpper(char output[], char input[]) {
-    // TODO: Implement this function
+    char letter;
+    printf("Please Enter a Lower Case Letter:");
+    letter = getchar();
+
+    if (letter >= 'a' && letter <= 'z')
+        letter = letter - 'a' + 'A';
+    printf("%c\n", letter);
+
 }
 
 int64_t findLastChar(char charToFind, char string[]) {

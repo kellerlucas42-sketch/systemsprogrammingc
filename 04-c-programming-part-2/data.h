@@ -62,7 +62,7 @@
 *   You may change data types of the return address and the radius. NOTE: If you need 
 *   use a number with a decimal point, use a double instead of a float for this problem. 
 */
-uint8_t calculateCircumference(uint8_t radius);
+double calculateCircumference(double radius);
 
 
 /*  Given an array of 5 integers, outputs the average.  

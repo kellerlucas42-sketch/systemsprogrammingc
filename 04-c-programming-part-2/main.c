@@ -28,9 +28,11 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "custom_strings.h"
+#include "data.h"
 
 /*  The starting point of your program.
 *   Every C program starts with a main.c.
+* gcc -Werror main.c data.c custom_strings.c -o lab4_main
 */
 int main() {
 
@@ -40,6 +42,19 @@ int main() {
 
     // An empty string for your use in the string functions
     char output[STR_LEN];
+    char * input = "meowmeowmeow";
+
+    // test for toUpper(output, input);
+    
+    double one = 1.00;
+
+    // test for printf("%f\n", calculateCircumference(one));
+    int data[] = {5, 5, 5, 5, 5};
+    //printf("%f\n", calculateAverage(data));
+
+    //printf("%u\n", anyBitIsOne(1));
+    //printf("%u\n", anyBitIsZero(0));
+
 
     return 0;
 }
