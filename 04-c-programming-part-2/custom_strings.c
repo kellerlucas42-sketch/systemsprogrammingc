@@ -39,13 +39,17 @@ uint32_t getStringLength(char string[]) {
 }
 
 void toUpper(char output[], char input[]) {
-    char letter;
-    printf("Please Enter a Lower Case Letter:");
-    letter = getchar();
+    char *str = "This is an example.";
+    char *c = str;
 
-    if (letter >= 'a' && letter <= 'z')
-        letter = letter - 'a' + 'A';
-    printf("%c\n", letter);
+    while (*c > '\0'){
+        printf("%c", *c);
+        c++;
+    }
+    
+/*if (*c >= 'a' && *c <= 'z')
+        *c = *c - 'a' + 'A';
+        *c++;*/
 
 }
 

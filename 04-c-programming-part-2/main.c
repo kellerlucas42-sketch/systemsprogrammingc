@@ -44,7 +44,7 @@ int main() {
     char output[STR_LEN];
     char * input = "meowmeowmeow";
 
-    // test for toUpper(output, input);
+    toUpper(output, input);
     
     double one = 1.00;
 
@@ -54,6 +54,8 @@ int main() {
 
     //printf("%u\n", anyBitIsOne(1));
     //printf("%u\n", anyBitIsZero(0));
+
+    //printf("%s\n", extractFromWord);
 
 
     return 0;

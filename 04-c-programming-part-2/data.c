@@ -71,10 +71,11 @@ uint8_t anyBitIsZero(int32_t input) {
 
 int8_t extractFromWord(uint32_t word, uint8_t bytenum) {
     // TODO: Implement this function
-    return ((unsigned)word >> (bytenum << 3)) & 0xFF;
+    return ((unsigned)word >> (bytenum << 3)) & 0xFF;}
 
 uint32_t mutliplyByBase2(uint32_t num, uint32_t power) {
     // TODO: Implement this function
+    uint32_t answer = num * (2);
     return 0;
 }
 
