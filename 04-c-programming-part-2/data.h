@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #define PI       3.14159
-#define TWO_PI   PI + PI // You may change this value if nessecary
+#define TWO_PI   (PI + PI) // You may change this value if nessecary
 
 
 //  ____________ A note on .h and .c files ____________

@@ -39,29 +39,63 @@ uint32_t getStringLength(char string[]) {
 }
 
 void toUpper(char output[], char input[]) {
-    char *str = "This is an example.";
-    char *c = str;
+    int i = 0;
+    while (input[i] != '\0'){
+        if (input[i] >= 'a' && input[i] <= 'z')
+        output[i] = input[i] - 'a' + 'A';
+        else
+            output[i] = input[i];
+        i++;
 
-    while (*c > '\0'){
-        printf("%c", *c);
-        c++;
     }
-    
-/*if (*c >= 'a' && *c <= 'z')
-        *c = *c - 'a' + 'A';
-        *c++;*/
+    output[i] = '\0';
+
 
 }
 
 int64_t findLastChar(char charToFind, char string[]) {
     // TODO: Implement this function
+    int64_t len = getStringLength(string);
+    for(int64_t i = len -1; i >= 0; i--){
+        if(string[i] == charToFind){
+            return i;
+        }
+    }
     return -1;
 }
 
 void getFileExtension(char extension[], char fileName[]) {
     // TODO: Implement this function
+    int64_t index = findLastChar('.', fileName);
+    int i = index + 1; 
+    int j = 0;
+    while(fileName[i] != '\0'){
+        extension[j] = fileName[i];
+        j++;
+        i++;
+    }
+    extension[j] = '\0';
+
 }
 
 void combinePath(char path[], char folderName[], char fileName[]) {
-    // TODO: Implement this function
+    // TODO: Implement this function 
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    while(folderName[i] != '\0'){
+        path[j] = folderName[i];
+        j++;
+        i++;
+    }
+    path[j] = '/';
+    j++; 
+    
+    while(fileName[k] != '\0'){
+        path[j] = fileName[k];
+        j++;
+        k++;
+    }
+
+    path[j] = '\0';
 }

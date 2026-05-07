@@ -52,7 +52,7 @@ double calculateCircumference(double radius) {
 double calculateAverage(int data[5]) {
     // TODO: Fix this function
     double sum = 0;
-    for (int i = 0; i <= 5; i++) {
+    for (int i = 0; i < 5; i++) {
         sum += data[i];
     }
     return sum / 5;
@@ -60,28 +60,27 @@ double calculateAverage(int data[5]) {
 
 uint8_t anyBitIsOne(int32_t input) {
     // TODO: Implement this function
-    uint32_t test = 4294967295;
-    return input && test;
+    return !!(input & 0xFFFFFFFF);
 }
 
 uint8_t anyBitIsZero(int32_t input) {
     // TODO: Implement this function
-    return !input;
+    return !!(~input);
 }
 
 int8_t extractFromWord(uint32_t word, uint8_t bytenum) {
     // TODO: Implement this function
-    return ((unsigned)word >> (bytenum << 3)) & 0xFF;}
+    return (int8_t)(word >> (bytenum * 8));
+}
 
 uint32_t mutliplyByBase2(uint32_t num, uint32_t power) {
     // TODO: Implement this function
-    uint32_t answer = num * (2);
-    return 0;
+    return num << power;
 }
 
 int8_t checkIfSpace(int val, int maxBytes) {
     // TODO: Fix this function
-    if (maxBytes - sizeof(val) >= 0) {
+    if (maxBytes >= (int)sizeof(val)) {
         return 1;
     } else {
         return 0;
