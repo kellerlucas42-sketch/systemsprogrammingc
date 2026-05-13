@@ -14,7 +14,9 @@ In this lab we set up the Raspberry Pi that will be used for the furture labs.
 
 * First we flashed the SD card for the Pi. This included running a bash script to run the imager which installs the OS. 
 
-* ```wget https://raw.githubusercontent.com/philipbl/ecen225-image/refs/heads/main/imager.sh``` ```chmod +x imager.sh``` ```./imager.sh```
+* ```wget https://raw.githubusercontent.com/philipbl/ecen225-image/refs/heads/main/imager.sh```
+  ```chmod +x imager.sh```
+  ```./imager.sh```
 
 * Then once that finished running the Pi was assembled in order to connect to it. After plugging in the Pi to the ethernet cable adapter, giving it connection and power, the Pi was pinged to check if it had connected.
 
