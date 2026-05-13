@@ -141,6 +141,7 @@ This lab was an introduction to programming in C, and was mostly focused on how 
 
 
 <br>
+
 ## Lab 04 - Programming in C - Part 2
 
 ### Description
@@ -148,6 +149,48 @@ This lab was an introduction to programming in C, and was mostly focused on how 
 This was a debugging lab meant to increase understanding on how C programs work. 
 
 ### Usage Instructions
+
+* In this lab there are several files, each with functions that either need to be debugged or written entirely.
+
+#### First we have custom_strings.c and it's accompanying header file.
+*custom_strings.c has five functions that we are expected to write: getStringLength, toUpper, findLastChar, getFileExtension, and combinePath*
+
+* getStringLength
+To implement this function we can utilize a while loop, which will increment an integer, j, as long as the string is continuing. A length variable is also set and incremented at the same time. 
+```
+uint32_t getStringLength(char string[]) {
+    int j = 0;
+    int length = 0;
+    while(string[j]){
+        length++;
+        j++;
+    }
+    return length;
+}
+```
+
+* toUpper
+To implement this function a similar loop is used to iterate through the input and write the correct values to the output. The while loop stops at '\0' which is the null character at the end of all the strings. 
+
+```void toUpper(char output[], char input[]) {
+    int i = 0;
+    while (input[i] != '\0'){
+        if (input[i] >= 'a' && input[i] <= 'z')
+        output[i] = input[i] - 'a' + 'A';
+        else
+            output[i] = input[i];
+        i++;
+
+    }
+    output[i] = '\0';
+
+
+}
+```
+
+
+#### Then we have the data.c file and it's accompanying header file.
+
 
 
 <br>
