@@ -28,7 +28,7 @@ In this lab we set up the Raspberry Pi that will be used for the furture labs.
 * The Pi was then powered down using ```sudo shutdown now```to keep it from bugging out, and then the display was connected to the Pi and fully assembled into a doorbell. 
  
 
-
+<br>
 
 ## Lab 02 - Command Line Practice
 ### Description
@@ -81,7 +81,7 @@ This lab was a command line challenge meant to teach how to create directories, 
 
 
 
-
+<br>
  
 
 
