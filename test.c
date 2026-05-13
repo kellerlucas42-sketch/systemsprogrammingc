@@ -62,13 +62,13 @@ void drawHelloWorld() {
     display_draw_string(spacing, spacing, "Hello World", &Font8, WHITE, BLACK);
     display_draw_string(spacing, spacing*2, "Hello World", &Font8, BLACK, WHITE);
     display_draw_string(spacing, spacing*3, "Hello World", &Font8, RED, WHITE);
-    display_draw_string(spacing, spacing, "Hello World", &Font8, BLUE, BLACK);
-    display_draw_string(spacing, spacing, "Hello World", &Font8, PURPLE, BLACK);
-    display_draw_string(spacing, spacing, "Hello World", &Font8, ORANGE, BLACK);
-    display_draw_string(spacing, spacing, "Hello World", &Font8, VIOLET_RED, WHITE);
-    display_draw_string(spacing, spacing, "Hello World", &Font8, PINK, WHITE);
-    display_draw_string(spacing, spacing, "Hello World", &Font8, BROWN, WHITE);
-    display_draw_string(spacing, spacing, "Hello World", &Font8, TEAL, WHITE);
+    display_draw_string(spacing, spacing*4, "Hello World", &Font8, BLUE, BLACK);
+    display_draw_string(spacing, spacing*5, "Hello World", &Font8, PURPLE, BLACK);
+    display_draw_string(spacing, spacing*6, "Hello World", &Font8, ORANGE, BLACK);
+    display_draw_string(spacing, spacing*7, "Hello World", &Font8, VIOLET_RED, WHITE);
+    display_draw_string(spacing, spacing*8, "Hello World", &Font8, PINK, WHITE);
+    display_draw_string(spacing, spacing*9, "Hello World", &Font8, BROWN, WHITE);
+    display_draw_string(spacing, spacing*10, "Hello World", &Font8, TEAL, WHITE);
 
 }
 
@@ -142,19 +142,19 @@ void drawStars() {
     drawStar(102, 100, BLUE, 1, 1);
     drawStar(104, 100, BLUE, 1, 1);
     drawStar(106, 100, BLUE, 1, 1);
-    drawStar(108, 100, BLUE, 1, 1);
+    drawStar(108, 100, BLUE, 1, 10);
     drawStar(109, 100, BLUE, 1, 1);
     drawStar(15, 100, BLUE, 1, 1);
     drawStar(20, 100, BLUE, 1, 1);
     drawStar(30, 100, BLUE, 1, 1);
-    drawStar(60, 100, BLUE, 1, 1);
+    drawStar(60, 100, BLUE, 1, 10);
     drawStar(80, 100, BLUE, 1, 1);
     drawStar(90, 100, BLUE, 1, 1);
     drawStar(100, 90, BLUE, 1, 1);
-    drawStar(100, 80, BLUE, 1, 1);
+    drawStar(100, 80, BLUE, 1, 10);
     drawStar(100, 70, BLUE, 1, 1);
     drawStar(100, 60, BLUE, 1, 1);
-    drawStar(100, 50, BLUE, 1, 1);
+    drawStar(100, 50, BLUE, 1, 10);
     
     
 }
@@ -190,6 +190,8 @@ int main(void) {
         drawHelloWorld();
         delay_ms(200);
         drawChars();
+        delay_ms(200);
+        drawStars();
         delay_ms(200);
 
 
