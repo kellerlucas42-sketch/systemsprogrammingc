@@ -74,8 +74,7 @@ This lab was a command line challenge meant to teach how to create directories, 
   ├── solution.txt
   └── tree.txt
 
-  7 directories, 12 files
-```
+  7 directories, 12 files```
 
 *Your final result should include 7 directories and 12 files, as shown above.* 
 
