@@ -70,7 +70,9 @@ uint8_t anyBitIsZero(int32_t input) {
 
 int8_t extractFromWord(uint32_t word, uint8_t bytenum) {
     // TODO: Implement this function
-    return (int8_t)(word >> (bytenum * 8));
+    uint32_t shift = word << (bytenum * 8);
+    shift = shift >> 24;
+    return (uint8_t) shift;
 }
 
 uint32_t mutliplyByBase2(uint32_t num, uint32_t power) {
