@@ -19,8 +19,7 @@ In this lab we set up the Raspberry Pi that will be used for the furture labs.
   ```./imager.sh```
 
 * Then once that finished running the Pi was assembled in order to connect to it. After plugging in the Pi to the ethernet cable adapter, giving it connection and power, the Pi was pinged to check if it had connected.
-
-* ```# replace NETID with your NetID ping doorbell-NETID.local``` If the command is successful then the Pi was able to connect and is online and ready to be connected to via SSH. ```ssh NETID@doorbell-NETID.local``` 
+```# replace NETID with your NetID ping doorbell-NETID.local``` If the command is successful then the Pi was able to connect and is online and ready to be connected to via SSH. ```ssh NETID@doorbell-NETID.local``` 
 
 * Once logged in to the Pi the terminal should change to ZSH. And the prompt will change to ```➜ ~```.
   
