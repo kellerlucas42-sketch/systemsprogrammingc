@@ -53,27 +53,29 @@ This lab was a command line challenge meant to teach how to create directories, 
        touch text.txt```
 * Then navigate to the top folder and check for anything you haven't finished. Then you can do the final task. You are meant to install the package called tree and use it at the top folder to create a beautiful list of all the folders inside the "challenge" directory.
 * Once the package is installed you can run the command ```tree -a```, this should create a tree.txt file that shows your full tree results. The -a flag is important as it reveals the hidden directories and files and allows them to be included in the tree.
-* ```.
-├── .admin
-│   └── runme.sh
-├── apple
-│   └── orange.txt
-├── mov
-│   ├── congratulations.txt
-│   └── .whats_this
-│       └── sneaky.txt
-├── README.txt
-├── runme.sh
-├── scripts
-│   ├── .environs
-│   │   └── instructions.txt
-│   ├── hamburger.sh
-│   ├── runme.sh
-│   └── text.txt
-├── solution.txt
-└── tree.txt
 
-7 directories, 12 files```
+* ```.
+  ├── .admin
+  │   └── runme.sh
+  ├── apple
+  │   └── orange.txt
+  ├── mov
+  │   ├── congratulations.txt
+  │   └── .whats_this
+  │       └── sneaky.txt
+  ├── README.txt
+  ├── runme.sh
+  ├── scripts
+  │   ├── .environs
+  │   │   └── instructions.txt  
+  │   ├── hamburger.sh
+  │   ├── runme.sh
+  │   └── text.txt
+  ├── solution.txt
+  └── tree.txt
+
+  7 directories, 12 files
+```
 
 * Your final result should include 7 directories and 12 files, as shown above. 
 
