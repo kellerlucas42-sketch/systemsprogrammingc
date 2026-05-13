@@ -93,7 +93,23 @@ This lab was an introduction to programming in C, and was mostly focused on how 
 
 ### Usage Instructions
 
-  ``` #include <stdio.h>
+*Refer to the code block below to see how these were implemented*
+
+* First we must create a new file called data.c, this can be done with the command ```touch data.c``` in the terminal or just creating the file within the folder on VSCode. 
+  
+* Then we must utilize the ```printf``` formats in C to complete the following instructions.
+  
+* Print out the hex equivalent of the unsigned int: 3735928559, this is done in the ```printf("%x\n", meow);``` line in the code below. This is because the %x flag prints out the integer as a hex. 
+  
+* Create a function that takes in a uint8_t as a parameter and prints the char equivalent. Use it at least 3 times in your main().
+  
+* Use the printf() function at least once that has multiple formatting specifiers/placeholders.
+  
+* Use at least 5 different format specifier types in 5 different printf() statements
+  
+* Use some format specifiers/placeholders in printf() in unexpected ways. Your program must compile. In a comment next to or above this statement, explain the behavior and why you think it works that way.
+
+*  ``` #include <stdio.h>
   #include <stdint.h>
 
   void numberer(uint8_t input)
@@ -118,7 +134,10 @@ This lab was an introduction to programming in C, and was mostly focused on how 
       printf("%i\n", honkey);
       unsigned int barfsicle = 37373737;
       printf("%f\n", barfsicle);
-      return 0; }```
+      return 0;
+    }```
+
+* Complile your code into an executable called data. This can be done using the ```gcc``` command. The -o flag makes the file executable. ```gcc data.c -o data```. Data becomes the name of the executable file, which can be run using ```./data```. 
 
 
 <br>
