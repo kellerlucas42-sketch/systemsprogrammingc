@@ -134,7 +134,8 @@ This lab was an introduction to programming in C, and was mostly focused on how 
           unsigned int barfsicle = 37373737;
           printf("%f\n", barfsicle);
           return 0;
-        }```
+        }
+   ```
 
 * Complile your code into an executable called data. This can be done using the ```gcc``` command. The -o flag makes the file executable. ```gcc data.c -o data```. Data becomes the name of the executable file, which can be run using ```./data```. 
 
