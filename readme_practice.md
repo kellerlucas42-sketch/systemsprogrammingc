@@ -23,9 +23,7 @@ In this lab we set up the Raspberry Pi that will be used for the furture labs.
 
 * Once logged in to the Pi the terminal should change to ZSH. And the prompt will change to ```➜ ~```.
   
-* The VSCode development environment was then set up using the Remote-SSH extension. 
-
-* Then GitHub was configured to be able to utilize a repository to be able to download the future lab files to the Pi. 
+* The VSCode development environment was then set up using the Remote-SSH extension and then GitHub was configured to be able to utilize a repository to be able to download the future lab files to the Pi. 
 
 * The Pi was then powered down using ```sudo shutdown now```to keep it from bugging out, and then the display was connected to the Pi and fully assembled into a doorbell. 
  
