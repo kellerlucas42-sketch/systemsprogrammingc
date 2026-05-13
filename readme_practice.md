@@ -93,18 +93,6 @@ This lab was an introduction to programming in C, and was mostly focused on how 
 
 ### Usage Instructions
 
-< some instructions >
-
-
-<br>
-## Lab 04 - Programming in C - Part 2
-
-### Description
-
-This was a debugging lab meant to increase understanding on how C programs work. 
-
-### Usage Instructions
-
   ``` #include <stdio.h>
   #include <stdint.h>
 
@@ -116,8 +104,7 @@ This was a debugging lab meant to increase understanding on how C programs work.
 
 
   int main()
-  {   
-      // print meow as hex :3
+  {   // print meow as hex :3
       unsigned int meow = 3735928559;
       uint8_t donkey = 38;
       uint8_t horse = 37;
@@ -131,11 +118,21 @@ This was a debugging lab meant to increase understanding on how C programs work.
       printf("%i\n", honkey);
       unsigned int barfsicle = 37373737;
       printf("%f\n", barfsicle);
-      return 0;
-  }```
+      return 0; }```
 
 
 <br>
+## Lab 04 - Programming in C - Part 2
+
+### Description
+
+This was a debugging lab meant to increase understanding on how C programs work. 
+
+### Usage Instructions
+
+
+<br>
+
 ## Lab 05 - Image Manipulation
 
 ### Description
