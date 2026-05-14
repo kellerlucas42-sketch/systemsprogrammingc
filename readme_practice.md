@@ -187,10 +187,114 @@ To implement this function a similar loop is used to iterate through the input a
 
 }
 ```
+* findLastChar
+The implementation for this should first calculate the length of the string and then iterate from the back to find the last occurrance of the character that we are looking for.
+```int64_t findLastChar(char charToFind, char string[]) {
+    // TODO: Implement this function
+    int64_t len = getStringLength(string);
+    for(int64_t i = len -1; i >= 0; i--){
+        if(string[i] == charToFind){
+            return i;
+        }
+    }
+    return -1;
+}
+```
+* getFileExtension
+We can use the findLastChar to find the last occurance of the '.' in order to separate the extension from the file. We take the index and add one, and then iterate through the fileName parameter until we reach the null pointer populating our output extension as we go. 
+```void getFileExtension(char extension[], char fileName[]) {
+    // TODO: Implement this function
+    int64_t index = findLastChar('.', fileName);
+    int i = index + 1; 
+    int j = 0;
+    while(fileName[i] != '\0'){
+        extension[j] = fileName[i];
+        j++;
+        i++;
+    }
+    extension[j] = '\0';
 
+}
+```
+* combinePath
+To combine the folderName and the fileName we have to iterate through both of these and add them to the path string making sure to add a slash in between.
+```void combinePath(char path[], char folderName[], char fileName[]) {
+    // TODO: Implement this function 
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    while(folderName[i] != '\0'){
+        path[j] = folderName[i];
+        j++;
+        i++;
+    }
+    path[j] = '/';
+    j++; 
+    
+    while(fileName[k] != '\0'){
+        path[j] = fileName[k];
+        j++;
+        k++;
+    }
+
+    path[j] = '\0';
+}
+```
 
 #### Then we have the data.c file and it's accompanying header file.
+* The first item to fix is putting parenthesis around the PI + PI, or changing it to PI*2 so that the circumference function can work properly.
+* The rest of the function fixes / implementations can be seen below. 
 
+```#define PI       3.14159
+#define TWO_PI   (PI + PI)
+```
+```double calculateCircumference(double radius) {
+    // TODO: Fix this function
+    if(radius < 0) return -1;
+    double circumference = radius * TWO_PI;
+    return circumference;
+}
+
+double calculateAverage(int data[5]) {
+    // TODO: Fix this function
+    double sum = 0;
+    for (int i = 0; i < 5; i++) {
+        sum += data[i];
+    }
+    return sum / 5;
+}
+
+uint8_t anyBitIsOne(int32_t input) {
+    // TODO: Implement this function
+    return !!(input & 0xFFFFFFFF);
+}
+
+uint8_t anyBitIsZero(int32_t input) {
+    // TODO: Implement this function
+    return !!(~input);
+}
+
+int8_t extractFromWord(uint32_t word, uint8_t bytenum) {
+    // TODO: Implement this function
+    uint32_t shift = word << (bytenum * 8);
+    shift = shift >> 24;
+    return (uint8_t) shift;
+}
+
+uint32_t mutliplyByBase2(uint32_t num, uint32_t power) {
+    // TODO: Implement this function
+    return num << power;
+}
+
+int8_t checkIfSpace(int val, int maxBytes) {
+    // TODO: Fix this function
+    if (maxBytes >= (int)sizeof(val)) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+```
 
 
 <br>
@@ -202,7 +306,114 @@ To implement this function a similar loop is used to iterate through the input a
 This lab was an introduction to bitmap image manipulation using bitwise operations on pixel values. 
 
 ### Usage Instructions
+* For the remove_color function you can iterate through the pixel color values by multiplying your iterating integer by three to access blue and adding 1 or 2 to access the green and red values. We can iterate through the entire area of the picture by determining the area of the bitmap. Then we can set the pixel value of all that one specific color to 0.
 
-< some instructions >
+ 
+```void remove_color_channel(Color color, Bitmap *bmp) {
+    // Put code here
+    uint32_t area = bmp->img_height * bmp->img_width;
+    if(color == GREEN_CHANNEL){
+        for(int i = 0; i <= area ; i++){
+        bmp->pxl_data[i*3+1] = 0;}
+    }
+    else if (color == BLUE_CHANNEL){
+        for(int i = 0; i <= area ; i++){
+        bmp->pxl_data[i*3] = 0;}
+    }
+    else if(color == RED_CHANNEL){
+        for(int i = 0; i <= area ; i++){
+        bmp->pxl_data[i*3+2] = 0;}
+    }
+    
+  }
+```
+
+* To get the grayscale to work we have to combine the values of the pixels all together to create a colorless shade of the pixel, the value calculated is then used as the pixel value for all three colors.
+
+
+```void grayscale(Bitmap *bmp) {
+    // Put code here
+        uint32_t area = bmp->img_height * bmp->img_width;
+        for(int i = 0; i <= area ; i++){
+            double Y = (bmp->pxl_data[i*3+2] * 0.299) + (bmp->pxl_data[i*3+1] * 0.587) + (bmp->pxl_data[i*3]       * 0.114);
+
+            bmp->pxl_data[i*3+2] = Y;
+            bmp->pxl_data[i*3+1] = Y;
+            bmp->pxl_data[i*3] = Y;
+        }
+    }
+``` 
+
+* The or_filter function is meant to use the bitwise OR | in order to mess around with the pixel values, specifically comparing each pixel to the one above and below it.
+
+
+
+  ```void or_filter(Bitmap *bmp) {
+      // Put code here
+      uint32_t area = bmp->img_height * bmp->img_width;
+      for(int i = 0; i <= area ; i++){
+          uint8_t top = 0; 
+          uint8_t bottom = 0;
+
+
+
+
+
+        //red   
+        uint8_t red = bmp->pxl_data[i*3+2]; 
+        uint8_t red_top = bmp->pxl_data[(i*3+2)+bmp->img_width*3];
+        uint8_t red_bottom = bmp->pxl_data[(i*3+2)+bmp->img_width*3];
+        if(red_top > area){
+            red_top = top;
+        }
+        else if(red_bottom < 0){
+            red_bottom = bottom;
+        }
+        uint8_t red_value = red | red_top | red_bottom;
+        bmp->pxl_data[i*3+2] = red_value;
+
+
+
+
+
+
+        //green
+        uint8_t green = bmp->pxl_data[i*3+1]; 
+        uint8_t green_top = bmp->pxl_data[(i*3+1)+bmp->img_width*3];
+        uint8_t green_bottom = bmp->pxl_data[(i*3+1)+bmp->img_width*3];
+        if(green_top > area){
+            green_top = top;
+        }
+        else if(green_bottom < 0){
+            green_bottom = bottom;
+        }
+        uint8_t green_value = green | green_top | green_bottom;
+        bmp->pxl_data[i*3+1] = green_value;
+
+
+
+
+
+        //blue
+        uint8_t blue = bmp->pxl_data[i*3];
+        uint8_t blue_top = bmp->pxl_data[(i*3)+bmp->img_width*3];
+        uint8_t blue_bottom = bmp->pxl_data[(i*3)+bmp->img_width*3];
+        if(blue_top > area){
+            blue_top = top;
+        }
+        else if(blue_bottom < 0){
+            blue_bottom = bottom;
+        }
+        uint8_t blue_value = blue | blue_top | blue_bottom;
+        bmp->pxl_data[i*3] = blue_value;
+        
+
+
+
+
+        
+    }
+}
+```
 
 
