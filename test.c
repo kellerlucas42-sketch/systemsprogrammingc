@@ -184,11 +184,11 @@ void drawMenu(char entries[][MAX_ENTRY_LENGTH], int num_entries, int selected) {
     display_init();
     uint16_t spacing = 12;
     uint16_t y_spacing = 12;
-    int i = 0;
-    if(selected > num_entries){
+    uint8_t i = 0;
+    if(selected < num_entries){
         selected = 0;
     }
-    while(entries[i] != '\0'){
+    while(i < num_entries){
         if(selected == i){
             display_draw_string(spacing, (y_spacing * i), entries[i], &Font12, BLUE, WHITE);
         }
@@ -205,6 +205,7 @@ int main(void) {
     signal(SIGINT, intHandler);
 
     log_info("Starting...");
+    uint8_t i = 0;
 
     while (true) {
         clearScreen();
@@ -219,14 +220,14 @@ int main(void) {
         delay_ms(200);
         drawFlag();
         delay_ms(200);
-        drawMenu(entries[], 4, 0);
-        int i = 0;
+        drawMenu(entries, NUM_ENTRIES, 0);
 
         if (button_up() == 0) {
             // Do something upon detecting button press
-            drawMenu(entries[], 5, i++)
+            drawMenu(entries, NUM_ENTRIES, i);
+            i++;
 
-            while (button_up() == 0) {
+            while(button_up() == 0) {
                 // Delay while the button is pressed to avoid repeated actions
                 delay_ms(1);
 
@@ -234,19 +235,19 @@ int main(void) {
         }
         // Implement other button logic here
         if (button_right() == 0){
-            if(selected == 0){
+            if(i == 0){
                 clearScreen();
             }
-            if(selected == 1){
+            if(i == 1){
                 drawHelloWorld();
             }
-            if(selected == 2){
+            if(i == 2){
                 drawChars();
             }
-            if(selected == 3){
+            if(i == 3){
                 drawStars();
             }
-            if(selected ==4){
+            if(i == 4){
                 drawFlag();
             }
         }
