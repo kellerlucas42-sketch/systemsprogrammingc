@@ -166,8 +166,9 @@ void drawFlag() {
     display_init();
     display_draw_rectangle(0, 16, 128, 112, BLUE, true, 1);
     display_draw_rectangle(0, 16, 128, 66, RED, true, 1);
-    display_draw_line(0, 16, 48, 66, WHITE, 25);
-    display_draw_line(0, 112, 48, 66, WHITE, 25);
+    display_draw_line(0, 16, 56, 66, WHITE, 1);
+    display_draw_line(0, 112, 56, 66, WHITE, 1);
+    display_draw_line(0, 100, 48, 48, WHITE, 25);
     drawStar(16, 66, YELLOW, 10, 10);
 }
 
