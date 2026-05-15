@@ -185,17 +185,15 @@ void drawMenu(char entries[][MAX_ENTRY_LENGTH], int num_entries, int selected) {
     uint16_t spacing = 12;
     uint16_t y_spacing = 12;
     uint8_t i = 0;
-    if(selected < num_entries){
-        selected = 0;
-    }
     while(i < num_entries){
         if(selected == i){
-            display_draw_string(spacing, (y_spacing * i), entries[i], &Font12, BLUE, WHITE);
+            display_draw_rectangle(24, (y_spacing*i), 128, (y_spacing*i)+12, BLUE, true, 1);
+            display_draw_string(spacing, (y_spacing * i) + 12, entries[i], &Font12, BLUE, WHITE);
         }
         else{
-        display_draw_string(spacing, (y_spacing * i), entries[i], &Font12, WHITE, BLACK);
+        display_draw_string(spacing, (y_spacing * i) + 12, entries[i], &Font12, WHITE, BLACK);
+            }
         i++;
-        }
     }
     
 }
@@ -206,54 +204,28 @@ int main(void) {
 
     log_info("Starting...");
     uint8_t i = 0;
+    
+    clearScreen();
+    delay_ms(200);
+    drawMenu(entries, NUM_ENTRIES, i);
 
     while (true) {
-        clearScreen();
-        delay_ms(200);
-        drawHelloWorld();
-        delay_ms(200);
-        drawChars();
-        delay_ms(200);
-        drawStars();
-        delay_ms(200);      
-        clearScreen();
-        delay_ms(200);
-        drawFlag();
-        delay_ms(200);
-        drawMenu(entries, NUM_ENTRIES, 0);
 
         if (button_up() == 0) {
             // Do something upon detecting button press
-            drawMenu(entries, NUM_ENTRIES, i);
             i++;
+            if(i > 4){
+                i = 0;
+            }
+
+            drawMenu(entries, NUM_ENTRIES, i);
 
             while(button_up() == 0) {
                 // Delay while the button is pressed to avoid repeated actions
                 delay_ms(1);
-
             }
+            
         }
-        // Implement other button logic here
-        if (button_right() == 0){
-            if(i == 0){
-                clearScreen();
-            }
-            if(i == 1){
-                drawHelloWorld();
-            }
-            if(i == 2){
-                drawChars();
-            }
-            if(i == 3){
-                drawStars();
-            }
-            if(i == 4){
-                drawFlag();
-            }
-        }
-            while(button_right()==0){
-                delay_ms(1);
-            }
     }
     return 0;
 }
