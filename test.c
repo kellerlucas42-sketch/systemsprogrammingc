@@ -218,7 +218,7 @@ int main(void) {
         delay_ms(200);
         drawFlag();
         delay_ms(200);
-        drawMenu(entries[], 5, 0);
+        drawMenu(entries[], 4, 0);
         int i = 0;
 
         if (button_up() == 0) {
@@ -232,6 +232,26 @@ int main(void) {
             }
         }
         // Implement other button logic here
+        if (button_center() == 0){
+            if(selected == 0){
+                clearScreen();
+            }
+            if(selected == 1){
+                drawHelloWorld();
+            }
+            if(selected == 2){
+                drawChars();
+            }
+            if(selected == 3){
+                drawStars();
+            }
+            if(selected ==4){
+                drawFlag();
+            }
+        }
+            while(button_center()==0){
+                delay_ms(1);
+            }
     }
     return 0;
 }
