@@ -232,7 +232,7 @@ int main(void) {
             }
         }
         // Implement other button logic here
-        if (button_center() == 0){
+        if (button_right() == 0){
             if(selected == 0){
                 clearScreen();
             }
@@ -249,7 +249,7 @@ int main(void) {
                 drawFlag();
             }
         }
-            while(button_center()==0){
+            while(button_right()==0){
                 delay_ms(1);
             }
     }
