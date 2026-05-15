@@ -60,16 +60,15 @@ void drawHelloWorld() {
     display_init();
     uint16_t spacing = 8;
     display_draw_string(spacing, spacing, "Hello World", &Font8, WHITE, BLACK);
-    display_draw_string(spacing, spacing*2, "Hello World", &Font8, BLACK, WHITE);
-    display_draw_string(spacing, spacing*3, "Hello World", &Font8, RED, WHITE);
-    display_draw_string(spacing, spacing*4, "Hello World", &Font8, BLUE, BLACK);
-    display_draw_string(spacing, spacing*5, "Hello World", &Font8, PURPLE, BLACK);
-    display_draw_string(spacing, spacing*6, "Hello World", &Font8, ORANGE, BLACK);
-    display_draw_string(spacing, spacing*7, "Hello World", &Font8, VIOLET_RED, WHITE);
-    display_draw_string(spacing, spacing*8, "Hello World", &Font8, PINK, WHITE);
-    display_draw_string(spacing, spacing*9, "Hello World", &Font8, BROWN, WHITE);
-    display_draw_string(spacing, spacing*10, "Hello World", &Font8, TEAL, WHITE);
-
+    display_draw_string(spacing, spacing * 2, "Hello World", &Font8, BLACK, WHITE);
+    display_draw_string(spacing, spacing * 3, "Hello World", &Font8, RED, WHITE);
+    display_draw_string(spacing, spacing * 4, "Hello World", &Font8, BLUE, BLACK);
+    display_draw_string(spacing, spacing * 5, "Hello World", &Font8, PURPLE, BLACK);
+    display_draw_string(spacing, spacing * 6, "Hello World", &Font8, ORANGE, BLACK);
+    display_draw_string(spacing, spacing * 7, "Hello World", &Font8, VIOLET_RED, WHITE);
+    display_draw_string(spacing, spacing * 8, "Hello World", &Font8, PINK, WHITE);
+    display_draw_string(spacing, spacing * 9, "Hello World", &Font8, BROWN, WHITE);
+    display_draw_string(spacing, spacing * 10, "Hello World", &Font8, TEAL, WHITE);
 }
 
 // drawChars
@@ -95,7 +94,8 @@ void drawChars() {
 // Draw at least 20 stars on the screen
 // TIP: Make a function that uses display_draw_# functions to make the shape of the star,
 // Then call that function at multiple locations
-void drawStar(uint16_t x_start, uint16_t y_start, uint16_t color, uint8_t line_weight, uint16_t scale){
+void drawStar(uint16_t x_start, uint16_t y_start, uint16_t color, uint8_t line_weight,
+              uint16_t scale) {
     uint16_t x_end = x_start;
     uint16_t y_end = y_start;
     y_end = y_start + (2 * scale);
@@ -130,7 +130,7 @@ void drawStar(uint16_t x_start, uint16_t y_start, uint16_t color, uint8_t line_w
     display_draw_line(x_start, y_start, x_end, y_end, color, line_weight);
     y_end = y_start + (0 * scale);
     x_end = x_start + (2 * scale);
-}   
+}
 
 void drawStars() {
     // TODO: Put your code here
@@ -155,8 +155,6 @@ void drawStars() {
     drawStar(100, 70, BLUE, 1, 1);
     drawStar(100, 60, BLUE, 1, 1);
     drawStar(100, 50, BLUE, 1, 10);
-    
-    
 }
 
 // drawFlag
@@ -165,10 +163,16 @@ void drawStars() {
 // It must have at least 3 colors, and use 3 unique display_draw functions
 void drawFlag() {
     // TODO: Put your code here
+    display_init();
+    display_draw_rectangle(0, 16, 128, 112, BLUE, true, 1);
+    display_draw_rectangle(0, 16, 128, 66, RED, true, 1);
+    display_draw_line(0, 16, 48, 66, WHITE, 25);
+    display_draw_line(0, 112, 48, 66, WHITE, 25);
+    drawStar(16, 66, YELLOW, 10, 10);
 }
 
 // draw_menu
-//
+//{"Clear", "Hello", "Chars", "Stars", "Flag"}
 // Draw the menu of the screen. It uses the entries array to create the menu, with the num_entries
 // specifying how many entries are in the entries array. The selected parameter is the item in the
 // menu that is selected and should be highlighted. Use BACKGROUND_COLOR, FONT_COLOR,
@@ -176,6 +180,23 @@ void drawFlag() {
 // select bar color, and selected text color.
 void drawMenu(char entries[][MAX_ENTRY_LENGTH], int num_entries, int selected) {
     // TODO: Put your code here
+    display_init();
+    uint16_t spacing = 12;
+    uint16_t y_spacing = 12;
+    int i = 0;
+    if(selected > num_entries){
+        selected = 0;
+    }
+    while(entries[i] != '\0'){
+        if(selected == i){
+            display_draw_string(spacing, (y_spacing * i), entries[i], &Font12, BLUE, WHITE);
+        }
+        else{
+        display_draw_string(spacing, (y_spacing * i), entries[i], &Font12, WHITE, BLACK);
+        i++;
+        }
+    }
+    
 }
 
 int main(void) {
@@ -192,15 +213,22 @@ int main(void) {
         drawChars();
         delay_ms(200);
         drawStars();
+        delay_ms(200);      
+        clearScreen();
         delay_ms(200);
-
+        drawFlag();
+        delay_ms(200);
+        drawMenu(entries[], 5, 0);
+        int i = 0;
 
         if (button_up() == 0) {
             // Do something upon detecting button press
+            drawMenu(entries[], 5, i++)
 
             while (button_up() == 0) {
                 // Delay while the button is pressed to avoid repeated actions
                 delay_ms(1);
+
             }
         }
         // Implement other button logic here
@@ -208,5 +236,5 @@ int main(void) {
     return 0;
 }
 
-//make test
-// sudo ./main, sudo ./test
+// make test
+//  sudo ./main, sudo ./test
