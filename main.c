@@ -33,6 +33,42 @@ void intHandler(int dummy) {
     exit(0);
 }
 
+void getFileExtension(char extension[], char fileName[]) {
+    // TODO: Implement this function
+    int64_t index = findLastChar('.', fileName);
+    int i = index + 1; 
+    int j = 0;
+    while(fileName[i] != '\0'){
+        extension[j] = fileName[i];
+        j++;
+        i++;
+    }
+    extension[j] = '\0';
+
+}
+
+void combinePath(char path[], char folderName[], char fileName[]) {
+    // TODO: Implement this function 
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    while(folderName[i] != '\0'){
+        path[j] = folderName[i];
+        j++;
+        i++;
+    }
+    path[j] = '/';
+    j++; 
+    
+    while(fileName[k] != '\0'){
+        path[j] = fileName[k];
+        j++;
+        k++;
+    }
+
+    path[j] = '\0';
+}
+
 /*
  * Takes in a folder, reads the contents of the folder, filtering out any files that do not end with
  * .log or .bmp. This function should check to make sure the folder exists. It fills in the entries
@@ -41,6 +77,25 @@ void intHandler(int dummy) {
  */
 int get_entries(char *folder, char entries[][MAX_FILE_NAME]) {
     // TODO: Put your code here
+    DIR *dp;
+    dp = opendir(folder);
+
+    if(dp == NULL){
+        return -1;
+    }
+    struct dirent * entry;
+    while((entry = readdir(dp) != NULL)){
+        getFileExtension(entry->d_name);
+    }
+
+
+    int i = 0;
+    while(i < MAX_ENTRIES){
+        
+    }
+
+
+    closedir(dp);
     return -1;
 }
 
@@ -53,6 +108,21 @@ int get_entries(char *folder, char entries[][MAX_FILE_NAME]) {
  */
 void draw_menu(char entries[][MAX_FILE_NAME], int num_entries, int selected) {
     // TODO: Put your code here
+    uint16_t spacing = 12;
+    uint16_t y_spacing = 12;
+    int i = 0;
+    if(selected > num_entries){
+        selected = 0;
+    }
+    while(entries[i] != '\0'){
+        if(selected == i){
+            display_draw_string(spacing, (y_spacing * i), entries[i], &Font12, BLUE, WHITE);
+        }
+        else{
+        display_draw_string(spacing, (y_spacing * i), entries[i], &Font12, WHITE, BLACK);
+        i++;
+        }
+    }
 }
 
 /*
@@ -75,6 +145,8 @@ int main(void) {
     char entries[MAX_ENTRIES][MAX_FILE_NAME];
 
     // TODO: Initialize the hardware
+    display_init();
+    buttons_init();
 
     // TODO: Get directory contents using get_entries function
 
