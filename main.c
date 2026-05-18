@@ -26,6 +26,18 @@
 #define SELECTED_BG_COLOR BYU_BLUE
 #define SELECTED_FONT_COLOR BYU_LIGHT_SAND
 
+
+int64_t findLastChar(char charToFind, char string[]) {
+    // TODO: Implement this function
+    int64_t len = getStringLength(string);
+    for(int64_t i = len -1; i >= 0; i--){
+        if(string[i] == charToFind){
+            return i;
+        }
+    }
+    return -1;
+}
+
 // Makes sure to deinitialize everything before program close
 void intHandler(int dummy) {
     log_info("Exiting...");
@@ -58,6 +70,11 @@ void combinePath(char path[], char folderName[], char fileName[]) {
         i++;
     }
     
+    if(!(findLastChar('/', folderName))){
+        path[j] = '/';
+        j++;
+    }
+
     while(fileName[k] != '\0'){
         path[j] = fileName[k];
         j++;
@@ -77,13 +94,13 @@ int get_entries(char *folder, char entries[][MAX_FILE_NAME]) {
     // TODO: Put your code here
     DIR *dp;
     dp = opendir(folder);
+    char extension[20];
 
     if(dp == NULL){
         return -1;
     }
     struct dirent * entry;
     while((entry = readdir(dp)) != NULL){
-        char extension[20];
         getFileExtension(extension, entry->d_name);
     }
 
@@ -93,8 +110,6 @@ int get_entries(char *folder, char entries[][MAX_FILE_NAME]) {
     strncpy(entries[i], entry->d_name, MAX_FILE_NAME);
     i++;
     }
-
-
 
     closedir(dp);
     return -1;
@@ -107,24 +122,25 @@ int get_entries(char *folder, char entries[][MAX_FILE_NAME]) {
  * SELECTED_BG_COLOR, and SELECTED_FONT_COLOR to help specify the colors of the background, font,
  * select bar color, and selected text color.
  */
-void draw_menu(char entries[][MAX_FILE_NAME], int num_entries, int selected) {
+void drawMenu(char entries[][MAX_FILE_NAME], int num_entries, int selected) {
     // TODO: Put your code here
     uint16_t spacing = 12;
     uint16_t y_spacing = 12;
-    int i = 0;
-    if(selected > num_entries){
-        selected = 0;
-    }
+    uint8_t i = 0;
     while(i < num_entries){
         if(selected == i){
-            display_draw_string(spacing, (y_spacing * i), entries[i], &Font12, BLUE, WHITE);
+            display_draw_rectangle(0, (y_spacing*i) + 12, 128, (y_spacing*i) + 24, BLUE, true, 1);
+            display_draw_string(spacing, (y_spacing * i) + 12, entries[i], &Font12, BLUE, WHITE);
         }
         else{
-        display_draw_string(spacing, (y_spacing * i), entries[i], &Font12, WHITE, BLACK);
+        display_draw_string(spacing, (y_spacing * i) + 12, entries[i], &Font12, WHITE, BLACK);
+            }
         i++;
-        }
     }
+    
 }
+
+
 
 /*
  * Displays an image or a log file. This function detects the type of file that should be draw. If
@@ -134,7 +150,27 @@ void draw_menu(char entries[][MAX_FILE_NAME], int num_entries, int selected) {
  */
 void draw_file(char *folder, char *file_name) {
     // TODO: Put your code here
+    char path[MAX_FILE_NAME];
+    char extension[MAX_FILE_NAME];
+    combinePath(path, folder, file_name);
+    getFileExtension(extension, path);
+    if(extension == 'bmp'){
+        display_draw_image(path);
+    }
+    else if(extension == 'log'){
+        FILE *fp;
+        fp = fopen(path, "r");
+        char contents[MAX_FILE_NAME];
+        fread(contents, 1, 100, fp);
+        
+        display_draw_string(12, 12, contents, *Font12, WHITE, BLACK);
+    }
+
 }
+
+
+
+
 
 int main(void) {
 
@@ -148,25 +184,65 @@ int main(void) {
     // TODO: Initialize the hardware
     display_init();
     buttons_init();
-
+    
     // TODO: Get directory contents using get_entries function
-
+    get_entries(VIEWER_FOLDER, entries);
+    
+    int i = 0;
     // TODO: Draw menu using draw_menu function
+    drawMenu(entries, MAX_ENTRIES, i);
 
     while (true) {
-        delay_ms(200);
 
-        // TODO: Put button logic here
-
-        // Example of how to interact with a button
-        if (button_up() == 0) {
+        if (button_down() == 0) {
             // Do something upon detecting button press
+            i++;
+            if(i > 4){
+                i = 0;
+            }
+            clearScreen();
+            drawMenu(entries, MAX_ENTRIES, i);
 
-            while (button_up() == 0) {
+            while(button_down() == 0) {
                 // Delay while the button is pressed to avoid repeated actions
                 delay_ms(1);
             }
+            
+        }
+        if (button_up() == 0) {
+            // Do something upon detecting button press
+            i--;
+            if(i < 0){
+                i = 4;
+            }
+            clearScreen();
+            drawMenu(entries, MAX_ENTRIES, i);
+
+            while(button_up() == 0) {
+                // Delay while the button is pressed to avoid repeated actions
+                delay_ms(1);
+            }
+            
+        }
+        if (button_right() == 0) {
+            // Do something upon detecting button press
+            draw_file(VIEWER_FOLDER, entries[i]);
+
+
+            delay_ms(800);
+            clearScreen();
+            drawMenu(entries, MAX_ENTRIES, i);
+
+            while(button_right() == 0) {
+                // Delay while the button is pressed to avoid repeated actions
+                delay_ms(1);
+            }
+            
         }
     }
     return 0;
 }
+
+
+// make test
+//  sudo ./main, sudo ./test

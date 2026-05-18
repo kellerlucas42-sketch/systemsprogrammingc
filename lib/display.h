@@ -1,4 +1,4 @@
-#ifndef __DISPLAY_H
+dis#ifndef __DISPLAY_H
 #define __DISPLAY_H
 
 #include <stdbool.h>
