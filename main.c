@@ -86,11 +86,7 @@ void combinePath(char path[], char folderName[], char fileName[]) {
         j++;
         i++;
     }
-    
-    if(!(findLastChar('/', folderName))){
-        path[j] = '/';
-        j++;
-    }
+    //add / back if it doesn't work
 
     while(fileName[k] != '\0'){
         path[j] = fileName[k];
@@ -119,17 +115,14 @@ int get_entries(char *folder, char entries[MAX_ENTRIES][MAX_FILE_NAME]) {
     }
 
     struct dirent * entry;
+    int i = 0;
     while((entry = readdir(dp)) != NULL){
         getFileExtension(extension, entry->d_name);
+        if (strcmp(extension, "log") == 0 || strcmp(extension, "bmp") == 0) {
+        strncpy(entries[i], entry->d_name, MAX_FILE_NAME);
+        i++;
+        }
     }
-
-
-    int i = 0;
-    if (strcmp(extension, "log") == 0 || strcmp(extension, "bmp") == 0) {
-    strncpy(entries[i], entry->d_name, MAX_FILE_NAME);
-    i++;
-    }
-
     closedir(dp);
     return -1;
 }
@@ -174,7 +167,7 @@ void draw_file(char *folder, char *file_name) {
     combinePath(path, folder, file_name);
     getFileExtension(extension, path);
 
-     if(strcmp(extension, "log")){
+     if(strcmp(extension, "log")== 0){
         FILE *fp;
         fp = fopen(path, "r");
         char contents[MAX_FILE_NAME];
@@ -182,7 +175,7 @@ void draw_file(char *folder, char *file_name) {
         display_draw_string(12, 12, contents, &Font12, WHITE, BLACK);
      }
      
-    else if(strcmp(extension, "bmp")){
+    else if(strcmp(extension, "bmp")== 0){
         display_draw_image(path);
         }
 
@@ -201,6 +194,7 @@ int main(void) {
     log_info("Starting...");
 
     // Use this to fill in with entries from the directory
+    int i = 0;
     char entries[MAX_ENTRIES][MAX_FILE_NAME];
 
     // TODO: Initialize the hardware
@@ -210,7 +204,6 @@ int main(void) {
     // TODO: Get directory contents using get_entries function
     get_entries(VIEWER_FOLDER, entries);
     
-    int i = 0;
     // TODO: Draw menu using draw_menu function
     drawMenu(entries, MAX_ENTRIES, i);
 
@@ -219,7 +212,7 @@ int main(void) {
         if (button_down() == 0) {
             // Do something upon detecting button press
             i++;
-            if(i > 4){
+            if(i > (MAX_ENTRIES - 1)){
                 i = 0;
             }
             clearScreen();
@@ -235,7 +228,7 @@ int main(void) {
             // Do something upon detecting button press
             i--;
             if(i < 0){
-                i = 4;
+                i = (MAX_ENTRIES - 1);
             }
             clearScreen();
             drawMenu(entries, MAX_ENTRIES, i);
@@ -248,10 +241,12 @@ int main(void) {
         }
         if (button_right() == 0) {
             // Do something upon detecting button press
+            clearScreen();
+            delay_ms(200);
             draw_file(VIEWER_FOLDER, entries[i]);
 
 
-            delay_ms(800);
+            delay_ms(1200);
             clearScreen();
             drawMenu(entries, MAX_ENTRIES, i);
 
