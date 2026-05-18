@@ -27,6 +27,23 @@
 #define SELECTED_FONT_COLOR BYU_LIGHT_SAND
 
 
+void clearScreen() {
+    // TODO: Put your code here
+    display_clear(WHITE);
+}
+
+uint32_t getStringLength(char string[]) {
+    // TODO: Implement this function
+    int j = 0;
+    int length = 0;
+    while(string[j]){
+        length++;
+        j++;
+    }
+    return length;
+}
+
+
 int64_t findLastChar(char charToFind, char string[]) {
     // TODO: Implement this function
     int64_t len = getStringLength(string);
@@ -90,15 +107,17 @@ void combinePath(char path[], char folderName[], char fileName[]) {
  * array with all of the entries in the folder, up to 8 (MAX_ENTRIES). The function returns the
  * number of entries it put into the entries array.
  */
-int get_entries(char *folder, char entries[][MAX_FILE_NAME]) {
+int get_entries(char *folder, char entries[MAX_ENTRIES][MAX_FILE_NAME]) {
     // TODO: Put your code here
     DIR *dp;
     dp = opendir(folder);
     char extension[20];
 
     if(dp == NULL){
+        closedir(dp);
         return -1;
     }
+
     struct dirent * entry;
     while((entry = readdir(dp)) != NULL){
         getFileExtension(extension, entry->d_name);
@@ -154,17 +173,20 @@ void draw_file(char *folder, char *file_name) {
     char extension[MAX_FILE_NAME];
     combinePath(path, folder, file_name);
     getFileExtension(extension, path);
-    if(extension == 'bmp'){
-        display_draw_image(path);
-    }
-    else if(extension == 'log'){
+
+     if(strcmp(extension, "log")){
         FILE *fp;
         fp = fopen(path, "r");
         char contents[MAX_FILE_NAME];
         fread(contents, 1, 100, fp);
-        
-        display_draw_string(12, 12, contents, *Font12, WHITE, BLACK);
-    }
+        display_draw_string(12, 12, contents, &Font12, WHITE, BLACK);
+     }
+     
+    else if(strcmp(extension, "bmp")){
+        display_draw_image(path);
+        }
+
+    
 
 }
 
