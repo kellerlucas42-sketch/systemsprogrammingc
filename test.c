@@ -210,7 +210,7 @@ int main(void) {
 
     while (true) {
 
-        if (button_up() == 0) {
+        if (button_down() == 0) {
             // Do something upon detecting button press
             i++;
             if(i > 4){
@@ -219,13 +219,13 @@ int main(void) {
             clearScreen();
             drawMenu(entries, NUM_ENTRIES, i);
 
-            while(button_up() == 0) {
+            while(button_down() == 0) {
                 // Delay while the button is pressed to avoid repeated actions
                 delay_ms(1);
             }
             
         }
-        if (button_down() == 0) {
+        if (button_up() == 0) {
             // Do something upon detecting button press
             i--;
             if(i < 0){
@@ -234,7 +234,7 @@ int main(void) {
             clearScreen();
             drawMenu(entries, NUM_ENTRIES, i);
 
-            while(button_down() == 0) {
+            while(button_up() == 0) {
                 // Delay while the button is pressed to avoid repeated actions
                 delay_ms(1);
             }
@@ -263,7 +263,7 @@ int main(void) {
             }
 
 
-            delay_ms(400);
+            delay_ms(800);
             clearScreen();
             drawMenu(entries, NUM_ENTRIES, i);
 
