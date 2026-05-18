@@ -57,8 +57,6 @@ void combinePath(char path[], char folderName[], char fileName[]) {
         j++;
         i++;
     }
-    path[j] = '/';
-    j++; 
     
     while(fileName[k] != '\0'){
         path[j] = fileName[k];
@@ -84,15 +82,18 @@ int get_entries(char *folder, char entries[][MAX_FILE_NAME]) {
         return -1;
     }
     struct dirent * entry;
-    while((entry = readdir(dp) != NULL)){
-        getFileExtension(entry->d_name);
+    while((entry = readdir(dp)) != NULL){
+        char extension[20];
+        getFileExtension(extension, entry->d_name);
     }
 
 
     int i = 0;
-    while(i < MAX_ENTRIES){
-        
+    if (strcmp(extension, "log") == 0 || strcmp(extension, "bmp") == 0) {
+    strncpy(entries[i], entry->d_name, MAX_FILE_NAME);
+    i++;
     }
+
 
 
     closedir(dp);
@@ -114,7 +115,7 @@ void draw_menu(char entries[][MAX_FILE_NAME], int num_entries, int selected) {
     if(selected > num_entries){
         selected = 0;
     }
-    while(entries[i] != '\0'){
+    while(i < num_entries){
         if(selected == i){
             display_draw_string(spacing, (y_spacing * i), entries[i], &Font12, BLUE, WHITE);
         }
