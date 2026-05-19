@@ -14,6 +14,7 @@
 #include "client.h"
 #include "log.h"
 
+
 int client_connect(const Config *config) {
     // Sets up structs for address info of specified hostname/port pair
     log_info("Connecting to server...");
@@ -64,6 +65,32 @@ int client_connect(const Config *config) {
 
 void client_send_image(int sockfd, const Config *config) {
     // IMPLEMENT THIS FUNCTION
+    client_connect(const Config *config);
+    int socket = sockfd;
+    int data_length = Config.payload_size;
+    int total_sent = 0
+    int num_sent = 0
+
+    uint8_t combine = malloc(sizeof(uint8_t)) * (128*128*3)
+
+
+    uint8_t *data = Config.payload;
+
+
+
+
+    while (total_sent < data_length){
+        num_sent = send(socket, data + total_sent, data_length - total_sent, 0)
+
+        if (num_sent < 0){
+            return -1;
+        }
+    
+    total_sent += num_sent
+    }
+
+
+    
 }
 
 void client_receive_response(int sockfd) {
@@ -77,3 +104,24 @@ void client_receive_response(int sockfd) {
 void client_close(int sockfd) {
     // IMPLEMENT THIS FUNCTION
 }
+
+
+
+/*
+client_connect();
+
+client_send_image();
+
+client_recieve_response();
+
+client_close();
+
+drawMenublahblahblah
+
+
+Config.host = ecen224.byu.edu;
+Config.port = 2240;
+Config.hw_id = "AC61BDF31";
+Config.payload = camera_capture_data(buf, bufsize);
+Config.payload_size = bufsize; 
+*/
