@@ -34,18 +34,13 @@ void camera_save_to_file(uint8_t *buf, size_t bufsize, char *filename) {
     /*
     YOUR CODE HERE
     */
-    uint8_t *my_new_buf = malloc(sizeof(uint8_t) * bufsize);
+    FILE *fp; = fopen(filename, "wb");
+    if(fp == NULL){
+        return -1;
+    }
 
-    FILE *fp;
-    fp = fopen(filename, "w");
-
-    fwrite();
-
-
-
-
-
+    fwrite(buf, 1, bufsize, fp);
+    
     fclose(fp);
-    free(my_new_buf);
 
 }

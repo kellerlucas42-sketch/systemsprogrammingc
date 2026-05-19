@@ -64,9 +64,66 @@ uint8_t *get_pxl_data(Bitmap *bmp) { return bmp->pxl_data; }
 uint8_t *get_original_pxl_data(Bitmap *bmp) { return bmp->pxl_data_cpy; }
 
 void remove_color_channel(Color color, Bitmap *bmp) {
-    // Copy code from Image Lab here
+    // Put code here
+    uint32_t area = bmp->img_height * bmp->img_width;
+    if(color == GREEN_CHANNEL){
+        for(int i = 0; i <= area ; i++){
+        bmp->pxl_data[i*3+1] = 0;}
+    }
+    else if (color == BLUE_CHANNEL){
+        for(int i = 0; i <= area ; i++){
+        bmp->pxl_data[i*3] = 0;}
+    }
+    else if(color == RED_CHANNEL){
+        for(int i = 0; i <= area ; i++){
+        bmp->pxl_data[i*3+2] = 0;}
+    }
+    
 }
 
+
 void or_filter(Bitmap *bmp) {
-    // Copy code from Image Lab here
+    // Put code here
+    uint32_t area = bmp->img_height * bmp->img_width;
+    for(int i = 0; i <= area ; i++){
+        uint8_t top = 0; 
+        uint8_t bottom = 0;
+
+        //red   
+        uint8_t red = bmp->pxl_data[i*3+2]; 
+        uint8_t red_top = bmp->pxl_data[(i*3+2)+bmp->img_width*3];
+        uint8_t red_bottom = bmp->pxl_data[(i*3+2)+bmp->img_width*3];
+        if(red_top > area){
+            red_top = top;
+        }
+        else if(red_bottom < 0){
+            red_bottom = bottom;
+        }
+        uint8_t red_value = red | red_top | red_bottom;
+        bmp->pxl_data[i*3+2] = red_value;
+        //green
+        uint8_t green = bmp->pxl_data[i*3+1]; 
+        uint8_t green_top = bmp->pxl_data[(i*3+1)+bmp->img_width*3];
+        uint8_t green_bottom = bmp->pxl_data[(i*3+1)+bmp->img_width*3];
+        if(green_top > area){
+            green_top = top;
+        }
+        else if(green_bottom < 0){
+            green_bottom = bottom;
+        }
+        uint8_t green_value = green | green_top | green_bottom;
+        bmp->pxl_data[i*3+1] = green_value;
+        //blue
+        uint8_t blue = bmp->pxl_data[i*3];
+        uint8_t blue_top = bmp->pxl_data[(i*3)+bmp->img_width*3];
+        uint8_t blue_bottom = bmp->pxl_data[(i*3)+bmp->img_width*3];
+        if(blue_top > area){
+            blue_top = top;
+        }
+        else if(blue_bottom < 0){
+            blue_bottom = bottom;
+        }
+        uint8_t blue_value = blue | blue_top | blue_bottom;
+        bmp->pxl_data[i*3] = blue_value; 
+    } 
 }
