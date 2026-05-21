@@ -261,7 +261,7 @@ int main(void) {
 
             if(button_up() == 0){
                 remove_color_channel(GREEN, &bmp);
-                display_draw_image_data(&bmp);
+                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
 
                 while(button_up() == 0){
                     delay_ms(1);
@@ -270,7 +270,7 @@ int main(void) {
 
             if(button_down() == 0){
                 or_filter(&bmp);
-                display_draw_image_data(&bmp);
+                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
 
                 while(button_down() == 0){
                     delay_ms(1);
@@ -281,8 +281,6 @@ int main(void) {
                 
                 destroy_bmp(&bmp);
                 free(buf);
-                free(&bmp);
-                free(&bmp);
                 clearScreen();
                 drawMenu(entries, MAX_ENTRIES, i);
 
