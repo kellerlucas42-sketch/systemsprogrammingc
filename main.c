@@ -238,12 +238,12 @@ int main(void) {
 
             Bitmap bmp;
             create_bmp(&bmp, buf);
-            display_draw_image_data(bmp.pxl_data);
+            display_draw_image_data(&bmp);
             
             if(button_right() == 0){
 
-                remove_color_channel(RED, bmp.pxl_data);
-                display_draw_image_data(bmp.pxl_data);
+                remove_color_channel(RED, &bmp);
+                display_draw_image_data(&bmp);
 
                 while(button_right() == 0){
                     delay_ms(1);
@@ -251,8 +251,8 @@ int main(void) {
             }
 
             if(button_left() == 0){
-                remove_color_channel(BLUE, bmp.pxl_data);
-                display_draw_image_data(bmp.pxl_data);
+                remove_color_channel(BLUE, &bmp);
+                display_draw_image_data(&bmp);
 
                 while(button_left() == 0){
                     delay_ms(1);
@@ -260,8 +260,8 @@ int main(void) {
             }
 
             if(button_up() == 0){
-                remove_color_channel(GREEN, bmp.pxl_data);
-                display_draw_image_data(bmp.pxl_data);
+                remove_color_channel(GREEN, &bmp);
+                display_draw_image_data(&bmp);
 
                 while(button_up() == 0){
                     delay_ms(1);
@@ -269,8 +269,8 @@ int main(void) {
             }
 
             if(button_down() == 0){
-                or_filter(bmp.pxl_data);
-                display_draw_image_data(bmp.pxl_data);
+                or_filter(&bmp);
+                display_draw_image_data(&bmp);
 
                 while(button_down() == 0){
                     delay_ms(1);
@@ -281,6 +281,7 @@ int main(void) {
                 
                 destroy_bmp(&bmp);
                 free(buf);
+                free(&bmp);
                 free(&bmp);
                 clearScreen();
                 drawMenu(entries, MAX_ENTRIES, i);
