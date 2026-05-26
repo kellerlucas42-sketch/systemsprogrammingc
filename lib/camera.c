@@ -34,9 +34,9 @@ void camera_save_to_file(uint8_t *buf, size_t bufsize, char *filename) {
     /*
     YOUR CODE HERE
     */
-    FILE *fp; = fopen(filename, "wb");
+    FILE *fp = fopen(filename, "wb");
     if(fp == NULL){
-        return -1;
+        exit(0);
     }
 
     fwrite(buf, 1, bufsize, fp);

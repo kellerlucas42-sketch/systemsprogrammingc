@@ -171,36 +171,90 @@ void draw_file(char *folder, char *file_name) {
         FILE *fp;
         fp = fopen(path, "r");
         char contents[MAX_FILE_NAME];
-        fread(contents, 1, 100, fp);
+        int result = 0;
+        result = fread(contents, 1, 100, fp);
+        contents[result] = '\0';
         display_draw_string(12, 12, contents, &Font12, WHITE, BLACK);
      }
      
     else if(strcmp(extension, "bmp")== 0){
         display_draw_image(path);
         }
+    }
 
-    
+void camera_menu(uint8_t *buf, Bitmap bmp){
+    while(true){
+        
+            if(button_right() == 0){
+                delay_ms(200);
+                remove_color_channel(RED_CHANNEL, &bmp);
+                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
+
+                while(button_right() == 0){
+                    delay_ms(1);
+                }
+            }
+
+            if(button_left() == 0){
+                delay_ms(200);
+                remove_color_channel(BLUE_CHANNEL, &bmp);
+                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
+
+                while(button_left() == 0){
+                    delay_ms(1);
+                }
+            }
+
+            if(button_up() == 0){
+                delay_ms(200);
+                remove_color_channel(GREEN_CHANNEL, &bmp);
+                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
+
+                while(button_up() == 0){
+                    delay_ms(1);
+                }
+            }
+
+            if(button_down() == 0){
+                delay_ms(200);
+                or_filter(&bmp);
+                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
+
+                while(button_down() == 0){
+                    delay_ms(1);
+                }
+            }
+
+            if(button_center() == 0){
+                delay_ms(200);
+                destroy_bmp(&bmp);
+                free(buf);
+                clearScreen();
+                break;
+
+                while(button_center() == 0){
+                    delay_ms(1);
+                }
+            }
+
+    }
 
 }
 
-
-
-
-
 int main(void) {
-
+    
     signal(SIGINT, intHandler);
-
+    
     log_info("Starting...");
-
+    
     // Use this to fill in with entries from the directory
     int i = 0;
     char entries[MAX_ENTRIES][MAX_FILE_NAME];
-
+    
     size_t bufsize = 128 * 128 * 3 + 14;
     uint8_t *buf = malloc(sizeof(uint8_t) * bufsize);
-
-
+    
+    
     // TODO: Initialize the hardware
     display_init();
     buttons_init();
@@ -211,8 +265,9 @@ int main(void) {
     // TODO: Draw menu using draw_menu function
     drawMenu(entries, MAX_ENTRIES, i);
 
+    
     while (true) {
-
+        
         if (button_down() == 0) {
             // Do something upon detecting button press
             i++;
@@ -228,90 +283,24 @@ int main(void) {
             }
             
         }
-        if (button_center() == 0) {
+
+        if (button_up() == 0) {
             // Do something upon detecting button press
+            i--;
+            if(i < 0){
+                i = (MAX_ENTRIES - 1);
+            }
             clearScreen();
-            display_draw_string(0, 16, "Picture Picture :)", &Font16, BLACK, WHITE);
-            delay_ms(400);
-            camera_capture_data(buf, bufsize);
-            camera_save_to_file(buf, bufsize, "viewer/doorbell.bmp");
-
-            Bitmap bmp;
-            create_bmp(&bmp, buf);
-            display_draw_image_data(&bmp);
-            
-            if(button_right() == 0){
-
-                remove_color_channel(RED, &bmp);
-                display_draw_image_data(&bmp);
-
-                while(button_right() == 0){
-                    delay_ms(1);
-                }
-            }
-
-            if(button_left() == 0){
-                remove_color_channel(BLUE, &bmp);
-                display_draw_image_data(&bmp);
-
-                while(button_left() == 0){
-                    delay_ms(1);
-                }
-            }
-
-            if(button_up() == 0){
-                remove_color_channel(GREEN, &bmp);
-                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
-
-                while(button_up() == 0){
-                    delay_ms(1);
-                }
-            }
-
-            if(button_down() == 0){
-                or_filter(&bmp);
-                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
-
-                while(button_down() == 0){
-                    delay_ms(1);
-                }
-            }
-
-            if(button_center() == 0){
+            drawMenu(entries, MAX_ENTRIES, i);
                 
-                destroy_bmp(&bmp);
-                free(buf);
-                clearScreen();
-                drawMenu(entries, MAX_ENTRIES, i);
-
-                while(button_center() == 0){
-                    delay_ms(1);
-                }
-            }
-
-            }
-
-            while(button_center() == 0) {
+            while(button_up() == 0) {
                 // Delay while the button is pressed to avoid repeated actions
                 delay_ms(1);
             }
-            
-            if (button_up() == 0) {
-                // Do something upon detecting button press
-                i--;
-                if(i < 0){
-                    i = (MAX_ENTRIES - 1);
-                }
-                clearScreen();
-                drawMenu(entries, MAX_ENTRIES, i);
                 
-                while(button_up() == 0) {
-                    // Delay while the button is pressed to avoid repeated actions
-                    delay_ms(1);
-                }
-                
-            }
-            if (button_right() == 0) {
+        }
+        
+        if (button_right() == 0) {
             // Do something upon detecting button press
             clearScreen();
             delay_ms(200);
@@ -328,7 +317,37 @@ int main(void) {
             }
             
         }
+
+
+
+
+        if (button_center() == 0) {
+            // Do something upon detecting button press
+            clearScreen();
+            display_draw_string(0, 16, "Picture Picture :)", &Font16, BLACK, WHITE);
+            delay_ms(400);
+            camera_capture_data(buf, bufsize);
+            
+            Bitmap bmp;
+            create_bmp(&bmp, buf);
+            display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
+
+            camera_menu(buf, bmp);
+
+            camera_save_to_file(buf, bufsize, "viewer/doorbell.bmp");
+
+            drawMenu(entries, MAX_ENTRIES, i);
+
+            
+            }
+
+            while(button_center() == 0) {
+                // Delay while the button is pressed to avoid repeated actions
+                delay_ms(1);
+            }
+
     }
+    
     return 0;
 }
 

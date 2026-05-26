@@ -63,9 +63,9 @@ int client_connect(const Config *config) {
     return sockfd;
 }
 
-void client_send_image(int sockfd, const Config *config) {
+//void client_send_image(int sockfd, const Config *config) {
     // IMPLEMENT THIS FUNCTION
-    client_connect(const Config *config);
+    /*client_connect(const Config *config);
     int socket = sockfd;
     int data_length = Config.payload_size;
     int total_sent = 0
@@ -107,7 +107,7 @@ void client_close(int sockfd) {
 
 
 
-/*
+
 client_connect();
 
 client_send_image();
