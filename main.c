@@ -237,7 +237,7 @@ int main(void) {
             camera_save_to_file(buf, bufsize, "viewer/doorbell.bmp");
 
             Bitmap bmp;
-            uint8_t *dst = &bmp; 
+            const uint8_t *dst = &bmp; 
 
             create_bmp(dst, buf);
             display_draw_image_data(dst, 128, 128);
