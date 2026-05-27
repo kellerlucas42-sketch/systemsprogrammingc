@@ -187,8 +187,9 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
         
             if(button_right() == 0){
                 delay_ms(200);
-                remove_color_channel(RED_CHANNEL, &bmp);
-                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
+                Bitmap temp1 = bmp;
+                remove_color_channel(RED_CHANNEL, &temp1);
+                display_draw_image_data(temp1.pxl_data, temp1.img_width, temp1.img_height);
 
                 while(button_right() == 0){
                     delay_ms(1);
@@ -197,8 +198,9 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
 
             if(button_left() == 0){
                 delay_ms(200);
-                remove_color_channel(BLUE_CHANNEL, &bmp);
-                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
+                Bitmap temp2 = bmp;
+                remove_color_channel(BLUE_CHANNEL, &temp2);
+                display_draw_image_data(temp2.pxl_data, temp2.img_width, temp2.img_height);
 
                 while(button_left() == 0){
                     delay_ms(1);
@@ -207,8 +209,9 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
 
             if(button_up() == 0){
                 delay_ms(200);
-                remove_color_channel(GREEN_CHANNEL, &bmp);
-                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
+                Bitmap temp3 = bmp;
+                remove_color_channel(GREEN_CHANNEL, &temp3);
+                display_draw_image_data(temp3.pxl_data, temp3.img_width, temp3.img_height);
 
                 while(button_up() == 0){
                     delay_ms(1);
@@ -217,8 +220,9 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
 
             if(button_down() == 0){
                 delay_ms(200);
-                or_filter(&bmp);
-                display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
+                Bitmap temp4 = bmp;
+                or_filter(&temp4);
+                display_draw_image_data(temp4.pxl_data, temp4.img_width, temp4.img_height);
 
                 while(button_down() == 0){
                     delay_ms(1);
