@@ -124,7 +124,7 @@ int get_entries(char *folder, char entries[MAX_ENTRIES][MAX_FILE_NAME]) {
         }
     }
     closedir(dp);
-    return -1;
+    return i;
 }
 
 /*
@@ -193,7 +193,6 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
                 create_bmp(&temp1, buf);
                 remove_color_channel(RED_CHANNEL, &temp1);
                 display_draw_image_data(temp1.pxl_data, 128, 128);
-                delay_ms(10000);
                 destroy_bmp(&temp1);
                 while(button_right() == 0){
                     delay_ms(1);
@@ -207,7 +206,6 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
                 create_bmp(&temp2, buf);
                 remove_color_channel(BLUE_CHANNEL, &temp2);
                 display_draw_image_data(temp2.pxl_data, 128, 128);
-                delay_ms(10000);
                 destroy_bmp(&temp2);
 
                 while(button_left() == 0){
@@ -222,7 +220,6 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
                 create_bmp(&temp3, buf);
                 remove_color_channel(GREEN_CHANNEL, &temp3);
                 display_draw_image_data(temp3.pxl_data, 128, 128);
-                delay_ms(10000);
                 destroy_bmp(&temp3);
 
                 while(button_up() == 0){
@@ -237,7 +234,6 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
                 create_bmp(&temp4, buf);
                 or_filter(&temp4);
                 display_draw_image_data(temp4.pxl_data, 128, 128);
-                delay_ms(10000);
                 destroy_bmp(&temp4);
 
                 while(button_down() == 0){
@@ -278,10 +274,9 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
     buttons_init();
     
     // TODO: Get directory contents using get_entries function
-    get_entries(VIEWER_FOLDER, entries);
-    
+    int num_entries = get_entries(VIEWER_FOLDER, entries);
     // TODO: Draw menu using draw_menu function
-    drawMenu(entries, MAX_ENTRIES, i);
+    drawMenu(entries, num_entries, i);
     
     
     while (true) {
@@ -289,11 +284,11 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
         if (button_down() == 0) {
             // Do something upon detecting button press
             i++;
-            if(i > (MAX_ENTRIES - 1)){
+            if(i > (num_entries - 1)){
                 i = 0;
             }
             clearScreen();
-            drawMenu(entries, MAX_ENTRIES, i);
+            drawMenu(entries, num_entries, i);
             
             while(button_down() == 0) {
                 // Delay while the button is pressed to avoid repeated actions
@@ -306,10 +301,10 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
             // Do something upon detecting button press
             i--;
             if(i < 0){
-                i = (MAX_ENTRIES - 1);
+                i = (num_entries - 1);
             }
             clearScreen();
-            drawMenu(entries, MAX_ENTRIES, i);
+            drawMenu(entries, num_entries, i);
             
             while(button_up() == 0) {
                 // Delay while the button is pressed to avoid repeated actions
@@ -354,20 +349,20 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
             
             camera_save_to_file(buf, bufsize, "viewer/doorbell.bmp");
             destroy_bmp(&bmp);
-            free(buf);
-
-            drawMenu(entries, MAX_ENTRIES, i);
-
             
-            }
-
+            drawMenu(entries, MAX_ENTRIES, i);
+            
+            
             while(button_center() == 0) {
                 // Delay while the button is pressed to avoid repeated actions
                 delay_ms(1);
             }
-
+        }
+        
+        
     }
     
+    free(buf);
     return 0;
 }
 
