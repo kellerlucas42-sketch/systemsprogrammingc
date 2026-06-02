@@ -184,6 +184,12 @@ void draw_file(char *folder, char *file_name) {
     }
 
 void camera_menu(uint8_t *buf, Bitmap bmp){
+    Config.host = "ecen224.byu.edu";
+    Config.port = "2240";
+    Config.hw_id = "AC61BDF31";
+    Config.payload = buf;
+    Config.payload_size = 128*128*3 + 14; 
+
     while(true){
         
             if(button_right() == 0){
@@ -244,11 +250,16 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
             if(button_center() == 0){
                 delay_ms(200);
                 clearScreen();
-                break;
+                
+                int sockfd = client_connect(&config);
+                client_send_image(sockfd, &config);
+                client_receive_response(sockfd);
+                client_close(sockfd);
                 
                 while(button_center() == 0){
                     delay_ms(1);
                 }
+                break;
             }
             
         }
