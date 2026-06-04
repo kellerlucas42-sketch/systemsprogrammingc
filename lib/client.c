@@ -66,27 +66,26 @@ int client_connect(const Config *config) {
 
 void client_send_image(int sockfd, const Config *config) {
     // IMPLEMENT THIS FUNCTION
-    int hw_id_len = strlen(config->hw_id);
-    int total_size = hw_id_len + config->payload_size;
-
-    uint8_t *combined = malloc(total_size);
-    memcpy(combined, config->hw_id, hw_id_len);
-    memcpy(combined + hw_id_len, config->payload, config->payload_size);
+    uint8_t *data = malloc(strlen(config->hw_id) + config->payload_size);
+    int data_length = config->payload_size;
+    memcpy(data, config->hw_id, strlen(config->hw_id));
+    memcpy(data + strlen(config->hw_id), config->payload, config->payload_size);
 
     int total_sent = 0;
     int num_sent = 0;
 
-    while (total_sent < total_size){
-        num_sent = send(sockfd, combined + total_sent, total_size - total_sent, 0);
+    while (total_sent < data_length){
+        num_sent = send(sockfd, data + total_sent, data_length - total_sent, 0);
 
         if (num_sent < 0){
             perror("send failed");
             break;
         }
     
-        total_sent += num_sent
+        total_sent += num_sent;
     }
-free(combined);
+    
+    free(data);
 
     
 }
