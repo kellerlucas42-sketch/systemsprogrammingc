@@ -25,7 +25,7 @@
 #define FONT_COLOR BLACK
 #define SELECTED_BG_COLOR BYU_BLUE
 #define SELECTED_FONT_COLOR BYU_LIGHT_SAND
-
+#define BUFFERSIZEMEOW 60000
 
 void clearScreen() {
     // TODO: Put your code here
@@ -185,15 +185,6 @@ void draw_file(char *folder, char *file_name) {
 
     
     void camera_menu(uint8_t *buf, Bitmap bmp){
-    struct Config con;
-
-    con.host = "ecen224.byu.edu";
-    con.port = "2240";
-    con.hw_id = "AC61BDF31";
-    con.payload = buf;
-    con.payload_size = 128*128*3 + 14; 
-
-
     while(true){
         
             if(button_right() == 0){
@@ -254,7 +245,8 @@ void draw_file(char *folder, char *file_name) {
             if(button_center() == 0){
                 delay_ms(200);
                 clearScreen();
-                
+
+                const Config con = {"2240", "ecen224.byu.edu", buf, BUFFERSIZEMEOW,"AC61BDF31"};
                 int sockfd = client_connect(&con);
                 client_send_image(sockfd, &con);
                 client_receive_response(sockfd);
