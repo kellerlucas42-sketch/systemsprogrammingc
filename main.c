@@ -183,12 +183,16 @@ void draw_file(char *folder, char *file_name) {
         }
     }
 
-void camera_menu(uint8_t *buf, Bitmap bmp){
-    Config.host = "ecen224.byu.edu";
-    Config.port = "2240";
-    Config.hw_id = "AC61BDF31";
-    Config.payload = buf;
-    Config.payload_size = 128*128*3 + 14; 
+    
+    void camera_menu(uint8_t *buf, Bitmap bmp){
+    struct Config con;
+
+    con.host = "ecen224.byu.edu";
+    con.port = "2240";
+    con.hw_id = "AC61BDF31";
+    con.payload = buf;
+    con.payload_size = 128*128*3 + 14; 
+
 
     while(true){
         
@@ -251,8 +255,8 @@ void camera_menu(uint8_t *buf, Bitmap bmp){
                 delay_ms(200);
                 clearScreen();
                 
-                int sockfd = client_connect(&config);
-                client_send_image(sockfd, &config);
+                int sockfd = client_connect(&con);
+                client_send_image(sockfd, &con);
                 client_receive_response(sockfd);
                 client_close(sockfd);
                 

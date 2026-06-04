@@ -84,7 +84,7 @@ void client_send_image(int sockfd, const Config *config) {
             break;
         }
     
-        total_sent += num_sent
+        total_sent += num_sent;
     }
 free(combined);
 
