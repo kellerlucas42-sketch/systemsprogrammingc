@@ -1,5 +1,5 @@
  <!-- replace this with your own title -->
-# ECEn 225 Doorbell Starter Kit
+# Meow Meow Kitty Doorbell
 
 Author: <!-- Put your name here -->
 
