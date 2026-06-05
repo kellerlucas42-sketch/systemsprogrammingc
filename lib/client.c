@@ -90,6 +90,7 @@ void client_send_image(int sockfd, const Config *config) {
     
 }
 
+
 void client_receive_response(int sockfd) {
     uint8_t buf[101];
     int num_recv = recv(sockfd, buf, 100, 0);

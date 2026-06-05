@@ -29,6 +29,17 @@
 
 int send_state = 0;
 
+void drawStatusBar() {
+    if(send_state == 1){
+        display_draw_rectangle(0, 116, 128, 128, BLUE, true, 1);
+        display_draw_string(4, 117, "Sending...", &Font12, BLUE, WHITE);
+        } 
+    else if(send_state == 2){
+        display_draw_rectangle(0, 116, 128, 128, GREEN, true, 1);
+        display_draw_string(4, 117, "Sent :)", &Font12, GREEN, WHITE);
+        }
+    }
+
 void clearScreen() {
     // TODO: Put your code here
     display_clear(WHITE);
@@ -141,7 +152,6 @@ void drawMenu(char entries[][MAX_FILE_NAME], int num_entries, int selected) {
     uint16_t spacing = 12;
     uint16_t y_spacing = 12;
     uint8_t i = 0;
-    display_draw_rectangle(0,0,128,128, WHITE, true, 2);
     while(i < num_entries){
         if(selected == i){
             display_draw_rectangle(0, (y_spacing*i) + 12, 128, (y_spacing*i) + 24, BLUE, true, 1);
@@ -155,6 +165,26 @@ void drawMenu(char entries[][MAX_FILE_NAME], int num_entries, int selected) {
     
 }
 
+
+
+void drawStartMenu(char entries[][MAX_FILE_NAME], int num_entries, int selected) {
+    // TODO: Put your code here
+    uint16_t spacing = 12;
+    uint16_t y_spacing = 12;
+    uint8_t i = 0;
+    display_draw_rectangle(0,0,128,128, WHITE, true, 2);
+    while(i < num_entries){
+        if(selected == i){
+            display_draw_rectangle(0, (y_spacing*i) + 12, 128, (y_spacing*i) + 24, BLUE, true, 1);
+            display_draw_string(spacing, (y_spacing * i) + 12, entries[i], &Font12, BLUE, WHITE);
+        }
+        else{
+        display_draw_string(spacing, (y_spacing * i) + 12, entries[i], &Font12, WHITE, BLACK);
+            }
+        i++;
+    }
+    
+}
 
 
 /*
@@ -269,7 +299,7 @@ void draw_file(char *folder, char *file_name) {
                 send_state = 1;
                 pthread_t send_thread;
                 pthread_create(&send_thread, NULL, send_image, (void *)buf);
-                
+  
                 while(button_center() == 0){
                     delay_ms(1);
                 }
@@ -281,16 +311,6 @@ void draw_file(char *folder, char *file_name) {
     }
 
 
-    void drawStatusBar() {
-        if(send_state == 1){
-            display_draw_rectangle(0, 116, 128, 128, BLUE, true, 1);
-            display_draw_string(4, 117, "Sending...", &Font12, BLUE, WHITE);
-            } 
-        else if(send_state == 2){
-            display_draw_rectangle(0, 116, 128, 128, GREEN, true, 1);
-            display_draw_string(4, 117, "Sent :)", &Font12, GREEN, WHITE);
-            }
-        }
 
 
     int main(void) {
@@ -314,7 +334,7 @@ void draw_file(char *folder, char *file_name) {
     // TODO: Get directory contents using get_entries function
     int num_entries = get_entries(VIEWER_FOLDER, entries);
     // TODO: Draw menu using draw_menu function
-    drawMenu(entries, num_entries, i);
+    drawStartMenu(entries, num_entries, i);
     drawStatusBar();
     
     
@@ -387,15 +407,13 @@ void draw_file(char *folder, char *file_name) {
             display_draw_image_data(bmp.pxl_data, bmp.img_width, bmp.img_height);
             
             camera_menu(buf, bmp);
-            
-
-
-
 
             camera_save_to_file(buf, bufsize, "viewer/doorbell.bmp");
             destroy_bmp(&bmp);
             
+            clearScreen();
             drawMenu(entries, MAX_ENTRIES, i);
+            drawStatusBar();
             
             
             while(button_center() == 0) {
@@ -403,6 +421,21 @@ void draw_file(char *folder, char *file_name) {
                 delay_ms(1);
             }
         }
+            if(send_state == 1){
+                display_draw_rectangle(0, 116, 128, 128, BLUE, true, 1);
+                display_draw_string(4, 117, "Sending...", &Font12, BLUE, WHITE);
+
+            while(send_state == 1) {
+                delay_ms(10);
+                }
+            } 
+            else if(send_state == 2){
+                display_draw_rectangle(0, 116, 128, 128, GREEN, true, 1);
+                display_draw_string(4, 117, "Sent :)", &Font12, GREEN, WHITE);
+                delay_ms(1000);
+                drawStartMenu(entries, MAX_ENTRIES, i);
+            }
+        
         
         
     }
