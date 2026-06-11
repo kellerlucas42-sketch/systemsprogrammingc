@@ -334,7 +334,57 @@ void draw_file(char *folder, char *file_name) {
         
     }
 
+    void secretMenu(){
+        if (button_down() == 0) {
+            i++;
+            if(i > (num_entries - 1)){
+                i = 0;}
+                clearScreen();
+                drawMenu(entries, num_entries, i);
+                drawStatusBar();
 
+                while(button_down() == 0) {
+                // Delay while the button is pressed to avoid repeated actions
+                    delay_ms(1);
+                    }
+            
+                }
+                        
+        if (button_up() == 0) {
+                            // Do something upon detecting button press
+                            i--;
+                            if(i < 0){
+                            i = (num_entries - 1);
+                            }
+                        clearScreen();
+                        drawMenu(entries, num_entries, i);
+                        drawStatusBar();
+
+                        while(button_up() == 0) {
+                      // Delay while the button is pressed to avoid repeated actions
+                             delay_ms(1);
+                            }
+            
+                        }
+        
+        if (button_right() == 0) {
+                        // Do something upon detecting button press
+                        clearScreen();
+                        delay_ms(200);
+                        draw_file(VIEWER_FOLDER, entries[i]);
+            
+            
+                        delay_ms(1200);
+                        clearScreen();
+                       drawMenu(entries, MAX_ENTRIES, i);
+            
+                        while(button_right() == 0) {
+                         // Delay while the button is pressed to avoid repeated actions
+                         delay_ms(1);
+                        }
+            
+                    }
+                }
 
 
     int main(void) {
@@ -371,60 +421,26 @@ void draw_file(char *folder, char *file_name) {
     while (true) {
         
         if(button_up() == 0){
+            while(button_up() == 0) {
+                // Delay while the button is pressed to avoid repeated actions
+                delay_ms(10);
+            }           
+
             if(button_up() == 0){
-                if(button_down() == 0){
-                            
-                    if (button_down() == 0) {
-                    // Do something upon detecting button press
-                        i++;
-                        if(i > (num_entries - 1)){
-                            i = 0;
-                        }
-                        clearScreen();
-                        drawMenu(entries, num_entries, i);
-                        drawStatusBar();
 
-                        while(button_down() == 0) {
-                        // Delay while the button is pressed to avoid repeated actions
-                            delay_ms(1);
-                        }
+                while(button_up() == 0) {
+                    // Delay while the button is pressed to avoid repeated actions
+                    delay_ms(10);
+                }
             
+                if(button_down() == 0)
+                    secretMenu();
+                    while(button_down()==0){
+                        delay_ms(10);
                     }
-        
-                    if (button_up() == 0) {
-                            // Do something upon detecting button press
-                            i--;
-                            if(i < 0){
-                            i = (num_entries - 1);
-                            }
-                        clearScreen();
-                        drawMenu(entries, num_entries, i);
-                        drawStatusBar();
 
-                        while(button_up() == 0) {
-                      // Delay while the button is pressed to avoid repeated actions
-                             delay_ms(1);
-                            }
-            
-                        }
-        
-                    if (button_right() == 0) {
-                        // Do something upon detecting button press
-                        clearScreen();
-                        delay_ms(200);
-                        draw_file(VIEWER_FOLDER, entries[i]);
-            
-            
-                        delay_ms(1200);
-                        clearScreen();
-                       drawMenu(entries, MAX_ENTRIES, i);
-            
-                        while(button_right() == 0) {
-                         // Delay while the button is pressed to avoid repeated actions
-                         delay_ms(1);
-                        }
-            
-                    }
+
+
 
                 }
 
@@ -432,8 +448,6 @@ void draw_file(char *folder, char *file_name) {
 
         }
 
-        
-        
         
         
         if (button_center() == 0) {
@@ -482,11 +496,11 @@ void draw_file(char *folder, char *file_name) {
         
         
         
+        free(buf);
+        return 0;
     }
     
-    free(buf);
-    return 0;
-}
+
 
 
 // make test
