@@ -27,6 +27,10 @@
 #define SELECTED_FONT_COLOR BYU_LIGHT_SAND
 #define BUFFERSIZEMEOW 60000
 
+
+
+
+
 int send_state = 0;
 
 void drawStatusBar() {
@@ -186,6 +190,26 @@ void drawStartMenu(char entries[][MAX_FILE_NAME], int num_entries, int selected)
     
 }
 
+void drawStart() {
+    // TODO: Put your code here
+    clearScreen();
+    display_draw_rectangle(0,0,128,128, WHITE, true, 2);
+    display_draw_string(64, 16, "Welcome", &Font12, BLACK, WHITE);
+}
+
+void drawDoorbell() {
+    // TODO: Put your code here
+    clearScreen();
+    display_draw_rectangle(0,0,128,128, WHITE, true, 2);
+    display_draw_string(64, 16, "Press Center Button to Picture", &Font12, BLACK, WHITE);
+}
+
+void drawDingDong() {
+    // TODO: Put your code here
+    clearScreen();
+    display_draw_rectangle(0,0,128,128, WHITE, true, 2);
+    display_draw_string(64, 16, "Press Center Button to Picture", &Font12, BLACK, WHITE);
+}
 
 /*
  * Displays an image or a log file. This function detects the type of file that should be draw. If
@@ -314,7 +338,7 @@ void draw_file(char *folder, char *file_name) {
 
 
     int main(void) {
-        
+        sleep(15);
         signal(SIGINT, intHandler);
         
         log_info("Starting...");
@@ -333,64 +357,81 @@ void draw_file(char *folder, char *file_name) {
     
     // TODO: Get directory contents using get_entries function
     int num_entries = get_entries(VIEWER_FOLDER, entries);
-    // TODO: Draw menu using draw_menu function
-    drawStartMenu(entries, num_entries, i);
+
+    drawStart();
+    delay_ms(600);
+    drawDoorbell();
+
+    
     drawStatusBar();
+    // TODO: Draw menu using draw_menu function
+    //drawStartMenu(entries, num_entries, i);
     
     
     while (true) {
         
-        if (button_down() == 0) {
-            // Do something upon detecting button press
-            i++;
-            if(i > (num_entries - 1)){
-                i = 0;
-            }
-            clearScreen();
-            drawMenu(entries, num_entries, i);
-            drawStatusBar();
+        if(button_up() == 0){
+            if(button_up() == 0){
+                if(button_down() == 0){
+                            
+                    if (button_down() == 0) {
+                    // Do something upon detecting button press
+                        i++;
+                        if(i > (num_entries - 1)){
+                            i = 0;
+                        }
+                        clearScreen();
+                        drawMenu(entries, num_entries, i);
+                        drawStatusBar();
 
-            while(button_down() == 0) {
-                // Delay while the button is pressed to avoid repeated actions
-                delay_ms(1);
-            }
+                        while(button_down() == 0) {
+                        // Delay while the button is pressed to avoid repeated actions
+                            delay_ms(1);
+                        }
             
-        }
+                    }
         
-        if (button_up() == 0) {
-            // Do something upon detecting button press
-            i--;
-            if(i < 0){
-                i = (num_entries - 1);
-            }
-            clearScreen();
-            drawMenu(entries, num_entries, i);
-            drawStatusBar();
+                    if (button_up() == 0) {
+                            // Do something upon detecting button press
+                            i--;
+                            if(i < 0){
+                            i = (num_entries - 1);
+                            }
+                        clearScreen();
+                        drawMenu(entries, num_entries, i);
+                        drawStatusBar();
 
-            while(button_up() == 0) {
-                // Delay while the button is pressed to avoid repeated actions
-                delay_ms(1);
-            }
+                        while(button_up() == 0) {
+                      // Delay while the button is pressed to avoid repeated actions
+                             delay_ms(1);
+                            }
             
-        }
+                        }
         
-        if (button_right() == 0) {
-            // Do something upon detecting button press
-            clearScreen();
-            delay_ms(200);
-            draw_file(VIEWER_FOLDER, entries[i]);
+                    if (button_right() == 0) {
+                        // Do something upon detecting button press
+                        clearScreen();
+                        delay_ms(200);
+                        draw_file(VIEWER_FOLDER, entries[i]);
             
             
-            delay_ms(1200);
-            clearScreen();
-            drawMenu(entries, MAX_ENTRIES, i);
+                        delay_ms(1200);
+                        clearScreen();
+                       drawMenu(entries, MAX_ENTRIES, i);
             
-            while(button_right() == 0) {
-                // Delay while the button is pressed to avoid repeated actions
-                delay_ms(1);
+                        while(button_right() == 0) {
+                         // Delay while the button is pressed to avoid repeated actions
+                         delay_ms(1);
+                        }
+            
+                    }
+
+                }
+
             }
-            
+
         }
+
         
         
         
@@ -398,7 +439,7 @@ void draw_file(char *folder, char *file_name) {
         if (button_center() == 0) {
             // Do something upon detecting button press
             clearScreen();
-            display_draw_string(0, 16, "Picture Picture :)", &Font16, BLACK, WHITE);
+            display_draw_string(64, 0, "Picture Picture :)", &Font12, BLACK, WHITE);
             delay_ms(400);
             camera_capture_data(buf, bufsize);
             
@@ -412,8 +453,9 @@ void draw_file(char *folder, char *file_name) {
             destroy_bmp(&bmp);
             
             clearScreen();
-            drawMenu(entries, MAX_ENTRIES, i);
-            drawStatusBar();
+            drawDingDong();
+            delay_ms(1200);
+            drawDoorbell();
             
             
             while(button_center() == 0) {
@@ -421,6 +463,7 @@ void draw_file(char *folder, char *file_name) {
                 delay_ms(1);
             }
         }
+            /* 
             if(send_state == 1){
                 display_draw_rectangle(0, 116, 128, 128, BLUE, true, 1);
                 display_draw_string(4, 117, "Sending...", &Font12, BLUE, WHITE);
@@ -434,7 +477,8 @@ void draw_file(char *folder, char *file_name) {
                 display_draw_string(4, 117, "Sent :)", &Font12, GREEN, WHITE);
                 delay_ms(1000);
                 drawStartMenu(entries, MAX_ENTRIES, i);
-            }
+            } 
+                */
         
         
         
