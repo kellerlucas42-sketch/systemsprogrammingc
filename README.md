@@ -323,7 +323,7 @@ while (total_sent < total_size) {
 
 Closes the socket file descriptor with `close(socket_fd)`.
 
-#### Center Button Flow (updated)
+#### Center Button Flow
 
 1. Connect: `client_connect(config)`
 2. Send: `client_send_image(config)`
@@ -497,7 +497,7 @@ YOUR_REPO/
 
 All notable changes are documented below, organized by lab.
 
-### Lab 11 — 2026-06-11
+### Lab 11 
 
 #### Additions
 
@@ -508,7 +508,7 @@ All notable changes are documented below, organized by lab.
 - `doorbell.service` systemd service file for automatic boot startup
 - 15-second startup delay to avoid display conflict with IP-address program
 
-### Lab 10 — 2026-06-04
+### Lab 10 
 
 #### Additions
 
@@ -521,7 +521,7 @@ All notable changes are documented below, organized by lab.
 - Center button no longer blocks the main loop during upload
 - Deferred `free()` calls to after thread completion to prevent use-after-free
 
-### Lab 09 — 2026-05-28
+### Lab 09 
 
 #### Additions
 
@@ -529,7 +529,7 @@ All notable changes are documented below, organized by lab.
 - `client_close`: closes the socket file descriptor
 - Center button (while viewing image) triggers full upload to `ecen224.byu.edu:2240`
 
-### Lab 08 — 2026-05-21
+### Lab 08 
 
 #### Additions
 
@@ -539,7 +539,7 @@ All notable changes are documented below, organized by lab.
 - `create_bmp` / `destroy_bmp` calls for proper BMP header parsing and memory cleanup
 - Copied `remove_color_channel` and `or_filter` from Image Lab into `image.c`
 
-### Lab 07 — 2026-05-14
+### Lab 07 
 
 #### Additions
 
@@ -547,7 +547,7 @@ All notable changes are documented below, organized by lab.
 - `draw_file`: renders `.bmp` images or first 100 chars of `.log` files for 2 seconds
 - Migrated menu from `test.c` to `main.c` as the primary interface
 
-### Lab 06 — 2026-05-07
+### Lab 06 
 
 #### Additions
 
