@@ -334,7 +334,38 @@ void draw_file(char *folder, char *file_name) {
         
     }
 
-    void secretMenu(){
+
+    int main(void) {
+        sleep(15);
+        signal(SIGINT, intHandler);
+        
+        log_info("Starting...");
+        
+        // Use this to fill in with entries from the directory
+        int i = 0;
+        char entries[MAX_ENTRIES][MAX_FILE_NAME];
+        
+        size_t bufsize = 128 * 128 * 3 + 14;
+        uint8_t *buf = malloc(sizeof(uint8_t) * bufsize);
+    //main
+    
+    // TODO: Initialize the hardware
+    display_init();
+    buttons_init();
+    
+    // TODO: Get directory contents using get_entries function
+    int num_entries = get_entries(VIEWER_FOLDER, entries);
+
+    drawStart();
+    delay_ms(600);
+    drawDoorbell();
+
+    
+    drawStatusBar();
+    // TODO: Draw menu using draw_menu function
+    //drawStartMenu(entries, num_entries, i);
+    
+        void secretMenu(){
         if (button_down() == 0) {
             i++;
             if(i > (num_entries - 1)){
@@ -386,38 +417,6 @@ void draw_file(char *folder, char *file_name) {
                     }
                 }
 
-
-    int main(void) {
-        sleep(15);
-        signal(SIGINT, intHandler);
-        
-        log_info("Starting...");
-        
-        // Use this to fill in with entries from the directory
-        int i = 0;
-        char entries[MAX_ENTRIES][MAX_FILE_NAME];
-        
-        size_t bufsize = 128 * 128 * 3 + 14;
-        uint8_t *buf = malloc(sizeof(uint8_t) * bufsize);
-    //main
-    
-    // TODO: Initialize the hardware
-    display_init();
-    buttons_init();
-    
-    // TODO: Get directory contents using get_entries function
-    int num_entries = get_entries(VIEWER_FOLDER, entries);
-
-    drawStart();
-    delay_ms(600);
-    drawDoorbell();
-
-    
-    drawStatusBar();
-    // TODO: Draw menu using draw_menu function
-    //drawStartMenu(entries, num_entries, i);
-    
-    
     while (true) {
         
         if(button_up() == 0){
@@ -434,7 +433,7 @@ void draw_file(char *folder, char *file_name) {
                 }
             
                 if(button_down() == 0)
-                    secretMenu();
+                    secretMenu(i, num_entries);
                     while(button_down()==0){
                         delay_ms(10);
                     }
