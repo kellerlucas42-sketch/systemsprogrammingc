@@ -10,7 +10,7 @@ A Raspberry Pi Zero 2W-based smart doorbell with an LCD display, camera, and net
 
 ## Overview
 
-This repository documents the second half of ECEN 225. Each lab adds a new layer to a working smart doorbell:
+This repository documents the project details.
 
 - **Display** — draws to an LCD screen and reads button input
 - **File Viewer** — scans a directory and renders `.bmp` images and `.log` files
