@@ -1,4 +1,4 @@
-# README #2
+# Programming in C: Doorbell using Raspberry Pi
 
 **Author:** Lucas Keller
 
