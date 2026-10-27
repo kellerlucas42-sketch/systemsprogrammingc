@@ -1,0 +1,5 @@
+As mentioned earlier in the lab, environmental variables are very important. Some famous ones that exist in every shell are HOME and USER (apart from many, many more). 
+
+Task 6 (of 7): Create two new variables and use them along with one system variable in a new script. This script should also create a file as an output. Remember if you get stuck, google is your friend!
+
+Once task 6 is finished, go to the top folder (challenge) and looks for any folders you haven't completed yet.
