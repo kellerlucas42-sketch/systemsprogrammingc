@@ -4,8 +4,9 @@ Author: Lucas Keller
 
 Date: 05/13/2026
 
+## Process Instructions / Documentation 
 
-## Lab 01 - Getting Started
+## Lab 01 - Beginning
 ### Description
 
 In this lab we set up the Raspberry Pi that will be used for the furture labs. 
@@ -415,4 +416,8 @@ This lab was an introduction to bitmap image manipulation using bitwise operatio
     }
 }
 ```
+
+
+
+
 
